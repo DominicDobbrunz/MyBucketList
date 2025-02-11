@@ -23,7 +23,7 @@ struct MyBucketListApp: App {
     
     var body: some Scene {
         WindowGroup {
-            LoadScreenView()
+            LoginView()
         }
     }
 }
