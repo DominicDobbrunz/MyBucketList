@@ -1,5 +1,8 @@
 # My Bucket List
 
+![background Kopie (1)](https://github.com/user-attachments/assets/b5a3cd66-8847-4af1-b121-74f7ddbdab70)
+![img_8044_i1920](https://github.com/user-attachments/assets/e108031c-c12f-4257-8bff-619b6da58f9c)
+
 Du bist unterwegs und hast vieles vor, kannst dir nicht alles Merken dann greife zur ,,My Bucket List“ App.
 
 warum erst im Urlaub seine Pläne schmieden für die Tage die man dort verbringt dann nutz doch die App ,,My Bucket List“.
@@ -24,3 +27,36 @@ Wie sehen die Screens aus:
 ![BucketListView](https://github.com/user-attachments/assets/8a2d979e-3f58-4555-9fa4-2e139c78316d)
 ![MapView](https://github.com/user-attachments/assets/5e75f1a3-de34-4746-9eb6-7cbd075529dc)
 
+
+
+Installation:
+
+1. Projekt Klonen
+git clone https://github.com/dein-username/mybucketlist.git
+2. Xcode öffnen und das Projekt MyBucketList.xcodeproject laden.
+3. App auf einem iOS 18.2 Simulator oder Gerät starten .
+
+
+Technologie-Stack:
+- XCode
+- SwiftUI
+- Beobachtung
+- MVVM
+- APIs
+
+
+Lizenz:
+
+Dieses Projekt steht unter der MIT-Lizenz. Weitere Informationen in der LICENSE-Datei.
+
+
+
+Autor:
+
+@Dominic Dobbrunz
+
+
+
+Gehe aufs Reisen und entdecke die Welt anders als vorher. Dafür ist die My Bucket List da. 🥳
+
+Also Lets Go ✈️
