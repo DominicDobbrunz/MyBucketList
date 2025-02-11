@@ -14,7 +14,7 @@ final class UserViewModel: ObservableObject {
     private var auth = Auth.auth()
     
     @Published var user: FirebaseAuth.User?
-    private let db = Firestore.firestore()
+    private let db = FirebaseManager.shared.database
     @Published var fireUser: FireUser?
     @Published var errorMessage: String?
     @Published var isUserGreeted: Bool = false
@@ -36,24 +36,12 @@ final class UserViewModel: ObservableObject {
     init() {
             checkIfUserExists()
         }
-        
-        private func checkIfUserExists() {
-            guard let currentUser = auth.currentUser else {
-                return
-            }
-            user = currentUser
-        }
-    
-    func signInAnonymously() async {
-        do {
-            let result = try await auth.signInAnonymously()
-            user = result.user
-            errorMessage = nil
-        } catch {
-            errorMessage = error.localizedDescription
-        }
+    private func checkIfUserExists() {
+        guard let currentUser = auth.currentUser else { return }
+        user = currentUser
+        fetchUser(userID: currentUser.uid)
     }
-    
+
     func signUp(email: String, password: String, name: String, birthdate: Date, gender: String, occupation: String) async {
             do {
                 let result = try await auth.createUser(withEmail: email, password: password)

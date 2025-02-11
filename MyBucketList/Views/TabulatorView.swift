@@ -17,17 +17,17 @@ struct TabulatorView: View {
                 }
             LikeView()
                 .tabItem {
-                    Image(systemName: "heart")
-                    Text("Erinnerung")
+                    Image(systemName: "heart.fill")
+                    Text("Erinnerrung")
                 }
             MapView()
                 .tabItem {
-                    Image(systemName: "map")
+                    Image(systemName: "map.fill")
                     Text("Karte")
                 }
             ProfilView()
                 .tabItem {
-                    Image(systemName: "peron.circle")
+                    Image(systemName: "person.circle")
                     Text("Profil")
                 }
                     

@@ -53,19 +53,7 @@ struct LoginView: View {
                             .font(.footnote)
                             .padding()
                     }
-                    Button(action: {
-                        Task {
-                            await userViewModel.signInAnonymously()
-                        }
-                    }) {
-                        Text("Anonym anmelden")
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.green1)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
-                    }
-                    .padding(.horizontal)
+                    
                     NavigationLink(destination: RegisterView()) {
                         Text("Noch keinen Account? Jetzt registrieren")
                             .font(.footnote)

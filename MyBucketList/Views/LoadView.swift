@@ -20,11 +20,11 @@ struct LoadView<Content:View>: View {
                 ZStack{
                     Text(title).bold().font(Font.custom("FingerPaint", size: 50))
                         .foregroundStyle(.white)
-                        
+                    
                         .opacity(show ? 1 : 0)
                         .offset(y: -100)
                         .offset(y: show ? 0 : -50)
-                        .scaleEffect(show ? 1 : 1.8)
+                        .scaleEffect(show ? 1 : 3.5)
                     
                 }
                 .frame(width: geo.size.width, height: geo.size.height)
@@ -32,7 +32,7 @@ struct LoadView<Content:View>: View {
                     Image(image)
                         .resizable()
                         .scaledToFill()
-                        .scaleEffect(show ? 1 : 1.8)
+                        .scaleEffect(show ? 2 : 3.5)
                         .animation(.easeInOut(duration: 2), value: show)
                 )
                 content
@@ -43,14 +43,11 @@ struct LoadView<Content:View>: View {
         }
         .ignoresSafeArea()
         .onAppear {
-                    show = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        showLoginView = true
-                    }
+            show = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                showLoginView = true
+            }
         }
     }
 }
 
-//#Preview {
-//    LoadView()
-//}
