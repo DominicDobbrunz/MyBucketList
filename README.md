@@ -8,6 +8,8 @@ Die Idee dahinter ist sich eine Liste zu erstellen und die mit seiner Freund/Fre
 Es spart Zeit im Urlaub und kann sie vorher fertig stellen.
 Listen können alle Möglichkeiten erfüllen und sich später darüber freuen.
 
+Die App ist für Menschen im Alter von 16 - 99 Jahre, da die Kinder immer mit der Familie unterwegs sind.
+
 Welche Funktionen bringt die App mit: 
 - Für alle Länder verfügbar
 - Eine Karte die dich ans Ziel bringt
