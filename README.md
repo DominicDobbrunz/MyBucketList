@@ -13,13 +13,14 @@ Listen können alle Möglichkeiten erfüllen und sich später darüber freuen.
 
 Die App ist für Menschen im Alter von 16 - 99 Jahre, da die Kinder immer mit der Familie unterwegs sind.
 
-Welche Funktionen bringt die App mit: 
-- Für alle Länder verfügbar
-- Eine Karte die dich ans Ziel bringt
-- Wenn ein Bucket erledigt wird man mit einer Benachrichtigung informiert
-- Einen Bereich wo man seine besten Erlebnisse noch mal sehen kann.
+## Welche Funktionen bringt die App mit: 
 
-Wie sehen die Screens aus:
+> - Für alle Länder verfügbar
+> - Eine Karte die dich ans Ziel bringt
+> - Wenn ein Bucket erledigt wird man mit einer Benachrichtigung informiert
+> - Einen Bereich wo man seine besten Erlebnisse noch mal sehen kann.
+
+## Wie sehen die Screens aus:
 
 ![LadebildschirmView](https://github.com/user-attachments/assets/8b5e3aac-079c-4f03-a89d-7f9113ab908d)
 ![LoginView](https://github.com/user-attachments/assets/3eb0542a-a68b-4141-bccd-1672d38d1a91)
@@ -29,32 +30,33 @@ Wie sehen die Screens aus:
 
 
 
-Installation:
+## Installation:
 
 1. Projekt Klonen
+```sch
 git clone https://github.com/dein-username/mybucketlist.git
-2. Xcode öffnen und das Projekt MyBucketList.xcodeproject laden.
-3. App auf einem iOS 18.2 Simulator oder Gerät starten .
+```
+3. Xcode öffnen und das Projekt MyBucketList.xcodeproject laden.
+4. App auf einem iOS 18.2 Simulator oder Gerät starten .
 
 
-Technologie-Stack:
-- XCode
-- SwiftUI
-- Beobachtung
-- MVVM
-- APIs
+## Technologie-Stack:
+- [XCode]
+- [SwiftUI]
+- [Beobachtung]
+- [MVVM]
+- [APIs]
 
 
-Lizenz:
+## Lizenz:
 
 Dieses Projekt steht unter der MIT-Lizenz. Weitere Informationen in der LICENSE-Datei.
 
 
 
-Autor:
+## Autor:
 
 @Dominic Dobbrunz
-
 
 
 Gehe aufs Reisen und entdecke die Welt anders als vorher. Dafür ist die My Bucket List da. 🥳
