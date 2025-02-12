@@ -1,7 +1,6 @@
 # My Bucket List
 
 ![background Kopie (1)](https://github.com/user-attachments/assets/b5a3cd66-8847-4af1-b121-74f7ddbdab70)
-![img_8044_i1920](https://github.com/user-attachments/assets/e108031c-c12f-4257-8bff-619b6da58f9c)
 
 Du bist unterwegs und hast vieles vor, kannst dir nicht alles Merken dann greife zur ,,My Bucket List“ App.
 
