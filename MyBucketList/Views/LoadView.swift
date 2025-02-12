@@ -18,13 +18,13 @@ struct LoadView<Content:View>: View {
         GeometryReader { geo in
             VStack(spacing:0) {
                 ZStack{
-                    Text(title).bold().font(Font.custom("FingerPaint", size: 50))
+                    Text(title).bold().font(Font.custom("Finger Paint", size: 45))
                         .foregroundStyle(.white)
                     
                         .opacity(show ? 1 : 0)
                         .offset(y: -100)
                         .offset(y: show ? 0 : -50)
-                        .scaleEffect(show ? 1 : 3.5)
+                        .scaleEffect(show ? 1 : 2.5)
                     
                 }
                 .frame(width: geo.size.width, height: geo.size.height)
@@ -38,7 +38,7 @@ struct LoadView<Content:View>: View {
                 content
                     .frame(width: geo.size.width, height: geo.size.height)
                     .offset(y: showLoginView ? -geo.size.height : 0)
-                    .animation(.linear(duration: 1), value: showLoginView)
+                    .animation(.linear(duration: 2), value: showLoginView)
             }
         }
         .ignoresSafeArea()

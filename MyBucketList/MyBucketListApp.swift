@@ -16,8 +16,9 @@ struct MyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            SwitchView()
+            LoadScreenView()
                 .environmentObject(UserViewModel())
+                
         }
     }
 }

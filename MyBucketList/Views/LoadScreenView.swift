@@ -12,7 +12,14 @@ struct LoadScreenView: View {
     @EnvironmentObject private var userViewModel: UserViewModel
     var body: some View {
         LoadView(title: "My Bucket List", image: .background1, content: LoginView())
-        
+//            .onAppear {
+//                  UIFont.familyNames.forEach { family in
+//                    print("Family: \(family)")
+//                    UIFont.fontNames(forFamilyName: family).forEach { font in
+//                      print("Font: \(font)")
+//                    }
+//                  }
+//                }
     }
 }
 
@@ -20,4 +27,5 @@ struct LoadScreenView: View {
     @Previewable @StateObject var userVM: UserViewModel = .init()
     LoadScreenView()
         .environmentObject(userVM)
+        
 }

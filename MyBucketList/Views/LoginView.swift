@@ -22,7 +22,7 @@ struct LoginView: View {
                     Text("My Bucket List")
                         .font(.title)
                         .fontWeight(.bold)
-                        .padding(.bottom,80)
+                        .padding(.bottom,60)
                     TextField("E-Mail", text: $email)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .keyboardType(.emailAddress)
@@ -42,7 +42,7 @@ struct LoginView: View {
                             .padding()
                             .frame(maxWidth: .infinity)
                             .background(Color.green1)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .cornerRadius(8)
                     }
                     .padding(.horizontal)
