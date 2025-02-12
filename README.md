@@ -4,7 +4,7 @@
 
 Du bist unterwegs und hast vieles vor, kannst dir nicht alles Merken dann greife zur ,,My Bucket List“ App.
 
-warum erst im Urlaub seine Pläne schmieden für die Tage die man dort verbringt dann nutz doch die App ,,My Bucket List“.
+Warum erst im Urlaub seine Pläne schmieden für die Tage die man dort verbringt dann nutz doch die Bucket List.
 
 Die Idee dahinter ist sich eine Liste zu erstellen und die mit seiner Freund/Freundin, Familie zu teilen oder für sich alleine nutzen.
 Es spart Zeit im Urlaub und kann sie vorher fertig stellen.
