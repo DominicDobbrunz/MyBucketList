@@ -8,97 +8,138 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject private var userViewModel: UserViewModel
+    @Environment(\.dismiss) var dismiss
+    @State private var name: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
-    @State private var name: String = ""
-    @State private var birthdate: Date = Date()
-    @State private var gender: String = "Männlich"
-    @State private var occupation: String = "Sonnenfreund"
-
-    let genderOptions = ["Männlich", "Weiblich", "Divers"]
-    let occupationOptions = ["Sonnenfreund", "Abenteuerfreund", "Stadtfreund", "Landschaftsfreund"]
+    @State private var showPassword: Bool = false
+    @State private var showConfirmPassword: Bool = false
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                Color.red1.ignoresSafeArea()
-                VStack(spacing: 20) {
+            VStack(spacing: 20) {
+                
+                VStack {
+                    Image("Regestrieren")
+                        .resizable()
+                        .frame(width: 373, height: 120)
+                        .cornerRadius(8)
+                        .scaledToFit()
+                        
+                        
+                    
                     Text("Registrieren")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .padding(.bottom, 40)
-                    
-                    TextField("Name", text: $name)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal)
-                    
-                    TextField("E-Mail", text: $email)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .keyboardType(.emailAddress)
-                        .autocapitalization(.none)
-                        .padding(.horizontal)
-                    
-                    SecureField("Passwort", text: $password)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal)
-                    
-                    SecureField("Passwort bestätigen", text: $confirmPassword)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal)
-                    
-                    DatePicker("Geburtsdatum", selection: $birthdate, displayedComponents: .date)
-                        .padding(.horizontal)
-                    HStack{
-                        Text("Geschlecht")
-                            .frame(width: 190, alignment: .leading)
-                        Picker("Geschlecht", selection: $gender) {
-                            ForEach(genderOptions, id: \.self) { Text($0) }
-                        }
-                        .foregroundStyle(.black)
-                        .pickerStyle(MenuPickerStyle())
-                        .padding(.horizontal)
-                    }
-                    HStack{
-                        Text("Wer bist du?")
-                            .frame(width: 190, alignment: .leading)
-                        Picker("Freund", selection: $occupation) {
-                            ForEach(occupationOptions, id: \.self) { Text($0) }
-                        }
-                        .foregroundStyle(.black)
-                        .pickerStyle(MenuPickerStyle())
-                        .padding(.horizontal)
+                        .bold().font(Font.custom("Baskerville", size: 30))
+                }
+                .padding(.top, 40)
+               
+                TextField("Name", text: $name)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .autocapitalization(.words)
+                    .padding(.horizontal)
+
+                
+                TextField("E-Mail", text: $email)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .keyboardType(.emailAddress)
+                    .autocapitalization(.none)
+                    .padding(.horizontal)
+
+                HStack {
+                    if showPassword {
+                        TextField("Passwort", text: $password)
+                    } else {
+                        SecureField("Passwort", text: $password)
                     }
                     Button(action: {
-                        if password == confirmPassword {
-                            Task {
-                                await userViewModel.signUp(email: email, password: password, name: name, birthdate: birthdate, gender: gender, occupation: occupation)
-                            }
-                        } else {
-                            userViewModel.errorMessage = "Passwörter stimmen nicht überein."
-                        }
+                        showPassword.toggle()
                     }) {
-                        Text("Registrieren")
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.green1)
-                            .foregroundColor(.black)
-                            .cornerRadius(8)
+                        Rectangle()
+                            .frame(width: 32, height: 32)
+                            .cornerRadius(5)
+                            .foregroundColor(.green1)
+                            .overlay(
+                                Text(showPassword ? "🔓" : "🔒")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(.black)
+                            )
                     }
-                    .padding(.horizontal)
-                    
-                    if let errorMessage = userViewModel.errorMessage {
-                        Text("Fehler: \(errorMessage)")
-                            .foregroundColor(.black)
-                            .font(.footnote)
-                            .padding()
-                    }
-                    
-                    Spacer()
                 }
-                .padding()
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal)
+
+                HStack {
+                                   if showConfirmPassword {
+                                       TextField("Passwort wiederholen", text: $confirmPassword)
+                                   } else {
+                                       SecureField("Passwort wiederholen", text: $confirmPassword)
+                                   }
+                                   Button(action: {
+                                       showConfirmPassword.toggle()
+                                   }) {
+                                       Rectangle()
+                                           .frame(width: 32, height: 32)
+                                           .cornerRadius(5)
+                                           .foregroundColor(.green1)
+                                           .overlay(
+                                               Text(showConfirmPassword ? "🔓" : "🔒")
+                                                   .font(.system(size: 14))
+                                                   .foregroundColor(.black)
+                                           )
+                                   }
+                               }
+                               .textFieldStyle(RoundedBorderTextFieldStyle())
+                               .padding(.horizontal)
+
+                if let errorMessage = userViewModel.errorMessage {
+                    Text(errorMessage)
+                        .foregroundColor(.black)
+                        .font(.footnote)
+                        .padding(.horizontal)
+                }
+
+                Button(action: {
+                    Task {
+                        guard password == confirmPassword else {
+                            userViewModel.errorMessage = "Passwörter stimmen nicht überein."
+                            return
+                        }
+                        await userViewModel.signUp(email: email, password: password, name: name)
+                    }
+                }) {
+                    Text("Auf zum Bucket")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.green1)
+                        .foregroundColor(.black)
+                        .cornerRadius(8)
+                }
+                .padding(.horizontal)
+
+                Spacer()
             }
+            .navigationBarBackButtonHidden(true) // Originalen Zurück-Pfeil entfernen
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button(action: {
+                                    dismiss()
+                                }) {
+                                    Image(systemName: "chevron.left")
+                                        .font(.title2)
+                                        .foregroundColor(.black) // Schwarzer Pfeil
+                                }
+                            }
+                        }
+            .padding()
+            .background(MeshGradientView().ignoresSafeArea())
         }
     }
 }
+
+#Preview {
+    RegisterView()
+        .environmentObject(UserViewModel())
+}
+

@@ -18,10 +18,12 @@ final class UserViewModel: ObservableObject {
     @Published var fireUser: FireUser?
     @Published var errorMessage: String?
     @Published var isUserGreeted: Bool = false
+    //ToDo: DeBug zwecken handish gesetzt
+//    var isUserSignedIn: Bool {
+//        user != nil
+//    }
+    @Published var isUserSignedIn: Bool = false
     
-    var isUserSignedIn: Bool {
-        user != nil
-    }
     var userID: String? {
         user?.uid
     }
@@ -42,7 +44,7 @@ final class UserViewModel: ObservableObject {
         fetchUser(userID: currentUser.uid)
     }
 
-    func signUp(email: String, password: String, name: String, birthdate: Date, gender: String, occupation: String) async {
+    func signUp(email: String, password: String, name: String) async {
             do {
                 let result = try await auth.createUser(withEmail: email, password: password)
                 user = result.user
@@ -51,20 +53,14 @@ final class UserViewModel: ObservableObject {
                     id: result.user.uid,
                     email: email,
                     registeredOn: Date(),
-                    name: name,
-                    birthdate: birthdate,
-                    gender: gender,
-                    occupation: occupation
-                )
+                    name: name
+                    )
 
                 try await db.collection("users").document(result.user.uid).setData([
                     "id": newUser.id,
                     "email": newUser.email,
                     "registeredOn": Timestamp(date: newUser.registeredOn),
                     "name": newUser.name,
-                    "birthdate": Timestamp(date: newUser.birthdate),
-                    "gender": newUser.gender,
-                    "occupation": newUser.occupation
                 ])
 
                 errorMessage = nil
@@ -94,7 +90,7 @@ final class UserViewModel: ObservableObject {
     
     }
     func createUser(userID: String, email: String, createdOn: Date) {
-        let user = FireUser(id: userID, email: email, registeredOn: createdOn, name: "", birthdate: Date(), gender: "", occupation: "")
+        let user = FireUser(id: userID, email: email, registeredOn: createdOn, name: "")
         do {
             try FirebaseManager.shared.database.collection("users").document(userID).setData(from: user)
             fetchUser(userID: userID)

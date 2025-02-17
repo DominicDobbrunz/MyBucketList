@@ -18,7 +18,7 @@ struct LoadView<Content:View>: View {
         GeometryReader { geo in
             VStack(spacing:0) {
                 ZStack{
-                    Text(title).bold().font(Font.custom("Finger Paint", size: 45))
+                    Text(title).bold().font(Font.custom("Baskerville", size: 45))
                         .foregroundStyle(.white)
                     
                         .opacity(show ? 1 : 0)

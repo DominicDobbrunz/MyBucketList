@@ -11,7 +11,7 @@ import SwiftUI
 struct LoadScreenView: View {
     @EnvironmentObject private var userViewModel: UserViewModel
     var body: some View {
-        LoadView(title: "My Bucket List", image: .background1, content: LoginView())
+        LoadView(title: "My Bucket List", image: .background1, content: SwitchView())
 //            .onAppear {
 //                  UIFont.familyNames.forEach { family in
 //                    print("Family: \(family)")

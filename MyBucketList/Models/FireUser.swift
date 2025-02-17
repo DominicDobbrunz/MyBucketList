@@ -12,7 +12,5 @@ struct FireUser: Codable, Identifiable {
     let email: String
     let registeredOn: Date
     let name: String
-    let birthdate: Date
-    let gender: String
-    let occupation: String
+    
 }

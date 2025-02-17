@@ -19,8 +19,8 @@ struct SwitchView: View {
     }
 }
 
-#Preview {
-    @Previewable @StateObject var userVM: UserViewModel = .init()
-    SwitchView()
-        .environmentObject(userVM)
-}
+//#Preview {
+//    @Previewable @StateObject var userVM: UserViewModel = .init()
+//    SwitchView()
+//        .environmentObject(userVM)
+//}

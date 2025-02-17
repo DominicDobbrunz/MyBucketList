@@ -12,10 +12,10 @@ struct ProfilView: View {
     
     var body: some View {
         ZStack {
-            Color.red1.ignoresSafeArea()
+            MeshGradientView()
             if userViewModel.isUserSignedIn {
                 VStack {
-                    Text("Einstellungen")
+                    Text("Profil")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     
@@ -26,7 +26,7 @@ struct ProfilView: View {
                             .padding()
                             .frame(maxWidth: .infinity)
                             .background(Color.green1)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .cornerRadius(8)
                     }
                     .padding()
@@ -39,8 +39,8 @@ struct ProfilView: View {
 }
 
 
-#Preview {
-    ProfilView()
-        .environmentObject(UserViewModel())
-}
+//#Preview {
+//    ProfilView()
+//        .environmentObject(UserViewModel())
+//}
 
