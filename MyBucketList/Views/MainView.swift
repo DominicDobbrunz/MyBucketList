@@ -50,7 +50,7 @@ struct MainView: View {
                         }
                     }
                 }
-                .navigationTitle("Bucket List")
+                
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: { showEditView = true }) {
