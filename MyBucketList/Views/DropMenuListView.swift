@@ -10,7 +10,9 @@ import SwiftUI
 struct DropMenuListView: View {
     @ObservedObject var settingVM: SettingViewModel
     let ListOne: [DataModel] = [
-        DataModel(iconName: "gear", title: "Einstellung", destination: AnyView(EmptyView())),
+        DataModel(iconName: "gear", title: "Einstellung",
+                  destination: AnyView(EmptyView())),
+        DataModel(iconName: "b.square", title: "Benachrichtigungen", destination: AnyView(Text("Benachrichtigung"))),
         DataModel(iconName: "questionmark.circle", title: "Support", destination: AnyView(Text("Hilfe"))),
         DataModel(iconName: "shield.lefthalf.filled", title: "Datenschutz", destination: AnyView(Text("Datenschutz"))),
         DataModel(iconName: "info.circle", title: "Information", destination: AnyView(Text("Infos")))

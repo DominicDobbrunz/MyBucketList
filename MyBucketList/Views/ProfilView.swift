@@ -31,10 +31,12 @@ struct ProfilView: View {
                         
                         HStack {
                             Text("Geschlecht:")
-                                .foregroundColor(.gray)
+                                .foregroundColor(.black)
+                            Spacer()
                             Picker("", selection: $settingVM.gender) {
                                 ForEach(settingVM.genderOptions, id: \.self) { option in
                                     Text(option)
+                                        .foregroundStyle(.black)
                                 }
                             }
                             .pickerStyle(MenuPickerStyle())
@@ -42,8 +44,10 @@ struct ProfilView: View {
                         .padding(.horizontal)
                         
                         HStack {
-                            Text("Wer bist du?")
-                                .foregroundColor(.gray)
+                            Text("Wer bist du:")
+                                .foregroundColor(.black)
+                                
+                            Spacer()
                             Picker("", selection: $settingVM.occupation) {
                                 ForEach(settingVM.occupationOptions, id: \.self) { option in
                                     Text(option)
@@ -54,11 +58,15 @@ struct ProfilView: View {
                         .padding(.horizontal)
                         
                         // Kompakter DatePicker
-                        DatePicker("Geburtstag", selection: $settingVM.birthdate, displayedComponents: .date)
-                            .labelsHidden()
-                            .datePickerStyle(CompactDatePickerStyle())
-                            .padding(.horizontal)
-                        
+                        HStack {
+                            Text("Wie alt bist du:")
+                                .padding(.horizontal,18)
+                            Spacer()
+                            DatePicker("Geburtstag", selection: $settingVM.birthdate, displayedComponents: .date)
+                                .labelsHidden()
+                                .datePickerStyle(CompactDatePickerStyle())
+                                .padding(.horizontal)
+                        }
                         // Speichern-Button
                         Button("Speichern") {
                             settingVM.saveUserData()
@@ -67,8 +75,8 @@ struct ProfilView: View {
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.green)
-                        .foregroundColor(.white)
+                        .background(Color.green1)
+                        .foregroundColor(.black)
                         .cornerRadius(10)
                         .padding(.horizontal)
                         
@@ -80,13 +88,11 @@ struct ProfilView: View {
                             Text("Wer bist du? \(settingVM.occupation)")
                             Text("Geburtstag: \(settingVM.birthdate, formatter: dateFormatter)")
                         }
-                        .padding()
+                        
+                        Spacer()
                     }
-                    
-                    
-                    
-                    // DropMenu für Einstellungen & Logout
                     DropMenuListView(settingVM: settingVM)
+                        .padding(.bottom,310)
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -113,6 +119,7 @@ private let dateFormatter: DateFormatter = {
 
 #Preview {
     ProfilView()
+        .environmentObject(SettingViewModel())
         .environmentObject(UserViewModel())
 }
 
