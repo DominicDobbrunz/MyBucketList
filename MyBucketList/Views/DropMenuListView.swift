@@ -11,7 +11,7 @@ struct DropMenuListView: View {
     @ObservedObject var settingVM: SettingViewModel
     let ListOne: [DataModel] = [
         DataModel(iconName: "gear", title: "Einstellung",
-                  destination: AnyView(EmptyView())),
+                  destination: AnyView(SettingView())),
         DataModel(iconName: "b.square", title: "Benachrichtigungen", destination: AnyView(Text("Benachrichtigung"))),
         DataModel(iconName: "questionmark.circle", title: "Support", destination: AnyView(Text("Hilfe"))),
         DataModel(iconName: "shield.lefthalf.filled", title: "Datenschutz", destination: AnyView(Text("Datenschutz"))),

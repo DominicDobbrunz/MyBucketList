@@ -18,7 +18,7 @@ struct MyApp: App {
         WindowGroup {
             LoadScreenView()
                 .environmentObject(UserViewModel())
-                
+                .environmentObject(SettingViewModel())
         }
     }
 }

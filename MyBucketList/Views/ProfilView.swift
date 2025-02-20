@@ -8,8 +8,9 @@
 import SwiftUI
 import Firebase
 struct ProfilView: View {
-    
+    @EnvironmentObject var userViewModel: UserViewModel
     @StateObject private var settingVM = SettingViewModel()
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         NavigationStack {
@@ -77,22 +78,58 @@ struct ProfilView: View {
                         .padding()
                         .background(Color.green1)
                         .foregroundColor(.black)
-                        .cornerRadius(10)
+                        .cornerRadius(8)
                         .padding(.horizontal)
                         
                     } else {
-                        // Anzeigemodus: Labels mit gespeicherten Daten
-                        VStack(spacing: 8) {
-                            Text(settingVM.name).font(.title2).bold()
-                            Text("Geschlecht: \(settingVM.gender)")
-                            Text("Wer bist du? \(settingVM.occupation)")
-                            Text("Geburtstag: \(settingVM.birthdate, formatter: dateFormatter)")
+                        // 📌 Anzeigemodus in zwei Spalten
+                        VStack {
+                            Text(settingVM.name)
+                                .font(.title2)
+                                .bold()
+                                .padding(.bottom, 10)
+                            
+                            HStack {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text("Geschlecht:")
+                                    Text("Wer bist du?")
+                                    Text("Geburtstag:")
+                                }
+                                .foregroundColor(.black)
+                                
+                                Spacer()
+                                
+                                VStack(alignment: .trailing, spacing: 10) {
+                                    Text(settingVM.gender)
+                                    Text(settingVM.occupation)
+                                    Text("\(settingVM.birthdate, formatter: dateFormatter)")
+                                }
+                                .foregroundColor(.black)
+                            }
+                            .padding(.horizontal, 40)
                         }
-                        
-                        Spacer()
+                        .padding()
                     }
                     DropMenuListView(settingVM: settingVM)
-                        .padding(.bottom,310)
+                        .padding(.bottom,280)
+                    
+                    Button(action: {
+                                        settingVM.logout()
+                                        presentationMode.wrappedValue.dismiss() // Zurück zum LoginView
+                                    }) {
+                                        HStack {
+                                            Text("Ausloggen")
+                                                .bold()
+                                            Image(systemName: "rectangle.portrait.and.arrow.right")
+                                        }
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(Color.green1)
+                                        .foregroundColor(.black)
+                                        .cornerRadius(8)
+                                    }
+                                    .padding(.horizontal)
+                                    .padding(.bottom, 40)
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {

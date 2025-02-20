@@ -130,6 +130,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				11311FE42D5A0C230073A1A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				111AF2D32D676AE7007E5172 /* XCRemoteSwiftPackageReference "google-maps-ios-utils" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 11311F642D59F4E50073A1A1 /* Products */;
@@ -372,6 +373,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		111AF2D32D676AE7007E5172 /* XCRemoteSwiftPackageReference "google-maps-ios-utils" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googlemaps/google-maps-ios-utils";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		11311FE42D5A0C230073A1A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
