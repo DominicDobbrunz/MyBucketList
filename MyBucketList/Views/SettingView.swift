@@ -13,59 +13,58 @@ struct SettingView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                MeshGradientView()
-                VStack {
-                    Form {
-                        Section(header: Text("Einstellung").bold()) {
-                            // Dark Mode Toggle
-                            Toggle(isOn: $settingVM.isDarkMode) {
-                                HStack {
-                                    Image(systemName: "moon.fill")
-                                        .foregroundColor(.gray)
-                                    Text("Nachtmodus")
-                                }
-                            }
-                            
-                            // Standortfreigabe Toggle
-                            Toggle(isOn: $settingVM.isLocationEnabled) {
-                                HStack {
-                                    Image(systemName: "location.fill")
-                                        .foregroundColor(.gray)
-                                    Text("Standortfreigabe")
-                                }
-                            }
-                            
-                            // Sprache Picker
+            VStack {
+                Form {
+                    Section(header: Text("Einstellung").bold().foregroundColor(.black)) {
+                        // Dark Mode Toggle
+                        Toggle(isOn: $settingVM.isDarkMode) {
                             HStack {
-                                Image(systemName: "globe")
+                                Image(systemName: "moon.fill")
                                     .foregroundColor(.gray)
-                                Text("Sprache")
-                                Spacer()
-                                Picker("", selection: $settingVM.selectedLanguage) {
-                                    ForEach(settingVM.languages, id: \.self) { language in
-                                        Text(language).tag(language)
-                                    }
-                                }
-                                .pickerStyle(MenuPickerStyle()) // Kompakter Picker
+                                Text("Nachtmodus")
                             }
                         }
-                    }
-                }
-                .navigationTitle("Einstellungen")
-                .navigationBarBackButtonHidden(true) // Originalen Zurück-Pfeil entfernen
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            Image(systemName: "chevron.left")
-                                .font(.title2)
-                                .foregroundColor(.black) // Schwarzer Pfeil
+                        
+                        // Standortfreigabe Toggle
+                        Toggle(isOn: $settingVM.isLocationEnabled) {
+                            HStack {
+                                Image(systemName: "location.fill")
+                                    .foregroundColor(.gray)
+                                Text("Standortfreigabe")
+                            }
+                        }
+                        
+                        // Sprache Picker
+                        HStack {
+                            Image(systemName: "globe")
+                                .foregroundColor(.gray)
+                            Text("Sprache")
+                            Spacer()
+                            Picker("", selection: $settingVM.selectedLanguage) {
+                                ForEach(settingVM.languages, id: \.self) { language in
+                                    Text(language).tag(language)
+                                }
+                            }
+                            .pickerStyle(MenuPickerStyle()) // Kompakter Picker
                         }
                     }
                 }
             }
+            .navigationTitle("Einstellungen")
+            .navigationBarBackButtonHidden(true) // Originalen Zurück-Pfeil entfernen
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title2)
+                            .foregroundColor(.black) // Schwarzer Pfeil
+                    }
+                }
+            }
+            .scrollContentBackground(.hidden) // Form-Hintergrund ausblenden
+            .background(MeshGradientView()) // Form Hintergrund rot machen
         }
     }
 }
