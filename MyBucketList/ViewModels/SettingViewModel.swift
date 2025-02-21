@@ -18,6 +18,11 @@ final class SettingViewModel: ObservableObject {
     @Published var occupation: String = "Sonnenfreund"
     @Published var isDarkMode: Bool = false
     @Published var isEditing: Bool = false
+    @Published var isLocationEnabled: Bool = false
+    @Published var selectedLanguage: String = "Deutsch"
+        
+    let languages = ["Deutsch", "Englisch", "Französisch", "Spanisch", "Italienisch"]
+    
     
     let genderOptions = ["Männlich", "Weiblich", "Divers"]
     let occupationOptions = ["Sonnenfreund", "Abenteuerfreund", "Stadtfreund", "Landschaftsfreund"]
