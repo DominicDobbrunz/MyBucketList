@@ -22,21 +22,20 @@ struct EditView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
-                // Titel-Eingabe
+                
                 TextField("Titel", text: $title)
                     .padding()
                     .background(Color.white.opacity(0.2))
                     .cornerRadius(10)
                     .padding(.horizontal)
                 
-                // Land-Eingabe
+                
                 TextField("Land", text: $country)
                     .padding()
                     .background(Color.white.opacity(0.2))
                     .cornerRadius(10)
                     .padding(.horizontal)
                 
-                // Companion Picker (als Liste)
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Mit wem?")
                         .font(.headline)
@@ -48,14 +47,14 @@ struct EditView: View {
                             Text(option.rawValue).tag(option)
                         }
                     }
-                    .pickerStyle(.inline) // Listendarstellung des Pickers
+                    .pickerStyle(.inline)
                     .padding()
                     .background(Color.white.opacity(0.2))
                     .cornerRadius(10)
                     .padding(.horizontal)
                 }
                 
-                // Speichern-Button
+                
                 Button(action: {
                     let newItem = BucketListItem(title: title, country: country, companion: companion)
                     onSave(newItem)
@@ -64,13 +63,12 @@ struct EditView: View {
                     Text("Hinzufügen")
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.green1) // Grüne Hintergrundfarbe
-                        .foregroundColor(.black) // Weiße Schriftfarbe
+                        .background(Color.green1)
+                        .foregroundColor(.black)
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)
 
-                // Abbrechen-Button (Schwarz)
                 Button(action: {
                     dismiss()
                 }) {
@@ -78,7 +76,7 @@ struct EditView: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.red1)
-                        .foregroundColor(.black) // Schwarze Schriftfarbe
+                        .foregroundColor(.black)
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)
@@ -86,7 +84,7 @@ struct EditView: View {
                 Spacer()
             }
             .navigationTitle("Neuer Bucket")
-            .background(MeshGradientView().opacity(0.2).ignoresSafeArea()) // Farbiger Hintergrund
+            .background(MeshGradientView().opacity(0.2).ignoresSafeArea()) 
         }
     }
 }

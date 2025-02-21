@@ -19,20 +19,17 @@ struct MapView: View {
         ZStack{
             MeshGradientView()
             VStack {
-                // 🔍 Suchleiste
                 TextField("Ort suchen...", text: $searchText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal)
                     .padding(.top,90)
-                
-                // 🗺 Karte
+              
                 Map(coordinateRegion: $region)
-                    .frame(height: 350)  // Höhe der Karte festlegen
+                    .frame(height: 350)
                     .cornerRadius(8)
                     .padding(.horizontal)
-                
-                // ℹ️ Info-Bereich
+             
                 VStack(alignment: .leading) {
                     Text("Ort: Bruchmühle")
                         .font(.headline)
@@ -46,7 +43,7 @@ struct MapView: View {
                 .cornerRadius(8)
                 .padding()
                 
-                Spacer() // Damit der Inhalt nicht gequetscht wird
+                Spacer() 
             }
         }
     }

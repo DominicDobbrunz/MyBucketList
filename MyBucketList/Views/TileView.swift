@@ -25,7 +25,6 @@ struct TileView: View {
                         .opacity(0.7)
                         .shadow(radius: 12)
                     
-                    // Text oben links
                     VStack(alignment: .leading, spacing: 4) {
                         Text(bucketItem.country)
                             .font(.footnote)
@@ -41,8 +40,6 @@ struct TileView: View {
                             .foregroundColor(.black.opacity(0.8))
                     }
                     .padding(16)
-                    
-                    // Ellipsis-Menü oben rechts
                     HStack {
                         Spacer()
                         Image(systemName: "ellipsis.circle")

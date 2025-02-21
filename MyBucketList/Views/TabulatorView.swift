@@ -24,15 +24,13 @@ struct TabulatorView: View {
                         ProfilView()
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity) // Nimmt die ganze Höhe
-            
-            Spacer(minLength: 0) // Sorgt dafür, dass das Tab-Menü unten bleibt
-            
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            Spacer(minLength: 0)
             TabuView(selectedTab: $selectedTab)
-                .padding(.bottom, 20) // Fügt Abstand unten hinzu für bessere Platzierung
-                .frame(height: 80) // Fixe Höhe des Tab-Menüs, damit es nicht zu groß ist
+                .padding(.bottom, 20)
+                .frame(height: 80)
         }
-        .edgesIgnoringSafeArea(.bottom) // Damit das Tab-Menü nicht zu hoch sitzt
+        .edgesIgnoringSafeArea(.bottom) 
     }
 }
 

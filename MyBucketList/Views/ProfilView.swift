@@ -17,7 +17,7 @@ struct ProfilView: View {
             ZStack{
                 MeshGradientView()
                 VStack(spacing: 20) {
-                    // Profilbild
+                    
                     Image(systemName: "person.circle.fill")
                         .resizable()
                         .frame(width: 100, height: 100)
@@ -25,7 +25,6 @@ struct ProfilView: View {
                         .padding(.top, 20)
                     
                     if settingVM.isEditing {
-                        // Bearbeitungsmodus: Textfelder & Picker
                         TextField("Name", text: $settingVM.name)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .padding(.horizontal)
@@ -58,7 +57,7 @@ struct ProfilView: View {
                         }
                         .padding(.horizontal)
                         
-                        // Kompakter DatePicker
+                        
                         HStack {
                             Text("Wie alt bist du:")
                                 .padding(.horizontal,18)
@@ -68,7 +67,7 @@ struct ProfilView: View {
                                 .datePickerStyle(CompactDatePickerStyle())
                                 .padding(.horizontal)
                         }
-                        // Speichern-Button
+                        
                         Button("Speichern") {
                             settingVM.saveUserData()
                             settingVM.isEditing = false
@@ -82,7 +81,6 @@ struct ProfilView: View {
                         .padding(.horizontal)
                         
                     } else {
-                        // 📌 Anzeigemodus in zwei Spalten
                         VStack {
                             Text(settingVM.name)
                                 .font(.title2)
@@ -115,7 +113,7 @@ struct ProfilView: View {
                     
                     Button(action: {
                                         settingVM.logout()
-                                        presentationMode.wrappedValue.dismiss() // Zurück zum LoginView
+                                        presentationMode.wrappedValue.dismiss()
                                     }) {
                                         HStack {
                                             Text("Ausloggen")
@@ -144,7 +142,7 @@ struct ProfilView: View {
     }
 }
 
-// Format für das Datum
+
 private let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .medium

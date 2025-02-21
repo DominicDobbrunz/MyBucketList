@@ -15,7 +15,7 @@ struct BucketListView: View {
     
     var body: some View {
         VStack {
-            // Bild und Details
+            
             Image("Schatten")
                 .resizable()
                 .scaledToFill()
@@ -36,8 +36,6 @@ struct BucketListView: View {
                     .padding()
                     , alignment: .bottomLeading
                 )
-            
-            // Bucket-Liste
             List {
                 ForEach(buckets.indices, id: \.self) { index in
                     HStack {

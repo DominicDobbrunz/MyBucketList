@@ -120,7 +120,7 @@ struct RegisterView: View {
 
                 Spacer()
             }
-            .navigationBarBackButtonHidden(true) // Originalen Zurück-Pfeil entfernen
+            .navigationBarBackButtonHidden(true)
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) {
                                 Button(action: {
@@ -128,7 +128,7 @@ struct RegisterView: View {
                                 }) {
                                     Image(systemName: "chevron.left")
                                         .font(.title2)
-                                        .foregroundColor(.black) // Schwarzer Pfeil
+                                        .foregroundColor(.black)
                                 }
                             }
                         }

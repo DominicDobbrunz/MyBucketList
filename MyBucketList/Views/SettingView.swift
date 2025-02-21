@@ -16,7 +16,6 @@ struct SettingView: View {
             VStack {
                 Form {
                     Section(header: Text("Einstellung").bold().foregroundColor(.black)) {
-                        // Dark Mode Toggle
                         Toggle(isOn: $settingVM.isDarkMode) {
                             HStack {
                                 Image(systemName: "moon.fill")
@@ -24,8 +23,6 @@ struct SettingView: View {
                                 Text("Nachtmodus")
                             }
                         }
-                        
-                        // Standortfreigabe Toggle
                         Toggle(isOn: $settingVM.isLocationEnabled) {
                             HStack {
                                 Image(systemName: "location.fill")
@@ -33,8 +30,6 @@ struct SettingView: View {
                                 Text("Standortfreigabe")
                             }
                         }
-                        
-                        // Sprache Picker
                         HStack {
                             Image(systemName: "globe")
                                 .foregroundColor(.gray)
@@ -45,13 +40,13 @@ struct SettingView: View {
                                     Text(language).tag(language)
                                 }
                             }
-                            .pickerStyle(MenuPickerStyle()) // Kompakter Picker
+                            .pickerStyle(MenuPickerStyle())
                         }
                     }
                 }
             }
             .navigationTitle("Einstellungen")
-            .navigationBarBackButtonHidden(true) // Originalen Zurück-Pfeil entfernen
+            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
@@ -59,12 +54,12 @@ struct SettingView: View {
                     }) {
                         Image(systemName: "chevron.left")
                             .font(.title2)
-                            .foregroundColor(.black) // Schwarzer Pfeil
+                            .foregroundColor(.black)
                     }
                 }
             }
-            .scrollContentBackground(.hidden) // Form-Hintergrund ausblenden
-            .background(MeshGradientView()) // Form Hintergrund rot machen
+            .scrollContentBackground(.hidden)
+            .background(MeshGradientView())
         }
     }
 }
