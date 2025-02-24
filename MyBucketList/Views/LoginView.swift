@@ -29,6 +29,7 @@ struct LoginView: View {
                     
                     Text("Willkommen").bold().font(Font.custom("Baskerville", size: 30))
                         .bold()
+                        .foregroundStyle(.black)
                 }
                 .padding(.top, 40)
                 

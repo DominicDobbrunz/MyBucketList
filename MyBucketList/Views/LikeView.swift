@@ -12,7 +12,7 @@ struct LikeView: View {
         ZStack{
             MeshGradientView()
             HStack{
-                Text("Erinnerung")
+                Text("Highlights")
             }
         }
         

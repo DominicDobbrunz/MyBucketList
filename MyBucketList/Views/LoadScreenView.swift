@@ -10,6 +10,8 @@ import SwiftUI
 
 struct LoadScreenView: View {
     @EnvironmentObject private var userViewModel: UserViewModel
+    @EnvironmentObject private var settingViewModel: SettingViewModel
+    
     var body: some View {
         LoadView(title: "My Bucket List", image: .background1, content: SwitchView())
 //            .onAppear {
@@ -27,5 +29,6 @@ struct LoadScreenView: View {
     @Previewable @StateObject var userVM: UserViewModel = .init()
     LoadScreenView()
         .environmentObject(userVM)
+        .environmentObject(SettingViewModel())
         
 }

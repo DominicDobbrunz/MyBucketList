@@ -12,9 +12,9 @@ struct DropMenuListView: View {
     let ListOne: [DataModel] = [
         DataModel(iconName: "gear", title: "Einstellung",
                   destination: AnyView(SettingView())),
-        DataModel(iconName: "b.square", title: "Benachrichtigungen", destination: AnyView(Text("Benachrichtigung"))),
-        DataModel(iconName: "questionmark.circle", title: "Support", destination: AnyView(Text("Hilfe"))),
-        DataModel(iconName: "shield.lefthalf.filled", title: "Datenschutz", destination: AnyView(Text("Datenschutz"))),
+        DataModel(iconName: "b.square", title: "Benachrichtigungen", destination: AnyView(NotificationSettingsView())),
+        DataModel(iconName: "questionmark.circle", title: "Support", destination: AnyView(SupportView())),
+        DataModel(iconName: "shield.lefthalf.filled", title: "Datenschutz", destination: AnyView(DatenschutzView())),
         DataModel(iconName: "info.circle", title: "Information", destination: AnyView(Text("Infos")))
     ]
     @State var showList = false
@@ -23,7 +23,7 @@ struct DropMenuListView: View {
         
         ZStack{
             HStack {
-                Image(systemName: "tortoise")
+                Image(systemName: "gearshape")
                     .frame(width: 30)
                 Text("Einstellungen und Hilfe")
                 Spacer()
