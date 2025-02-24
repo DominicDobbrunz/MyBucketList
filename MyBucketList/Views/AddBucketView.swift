@@ -41,6 +41,7 @@ struct AddBucketView: View {
                 Text("Abbrechen")
                     .frame(maxWidth: .infinity)
                     .padding()
+                    .background(Color.red1)
                     .foregroundColor(.black)
             }
             .padding(.horizontal)

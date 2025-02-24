@@ -15,7 +15,7 @@ struct DropMenuListView: View {
         DataModel(iconName: "b.square", title: "Benachrichtigungen", destination: AnyView(NotificationSettingsView())),
         DataModel(iconName: "questionmark.circle", title: "Support", destination: AnyView(SupportView())),
         DataModel(iconName: "shield.lefthalf.filled", title: "Datenschutz", destination: AnyView(DatenschutzView())),
-        DataModel(iconName: "info.circle", title: "Information", destination: AnyView(Text("Infos")))
+        DataModel(iconName: "info.circle", title: "Information", destination: AnyView(InfoView()))
     ]
     @State var showList = false
     

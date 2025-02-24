@@ -22,6 +22,7 @@ struct MyApp: App {
             LoadScreenView()
                 .environmentObject(UserViewModel())
                 .environmentObject(SettingViewModel())
+                .environmentObject(MapViewModel())
         }
     }
 }

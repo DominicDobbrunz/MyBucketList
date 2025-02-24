@@ -36,18 +36,18 @@ struct EditView: View {
                     .cornerRadius(10)
                     .padding(.horizontal)
                 
-                VStack(alignment: .leading, spacing: 5) {
+                HStack {
                     Text("Mit wem?")
                         .font(.headline)
                         .foregroundColor(.black)
                         .padding(.horizontal)
-                    
+                    Spacer()
                     Picker("Mit wem?", selection: $companion) {
                         ForEach(Companion.allCases) { option in
                             Text(option.rawValue).tag(option)
                         }
                     }
-                    .pickerStyle(.inline)
+                    .pickerStyle(MenuPickerStyle())
                     .padding()
                     .background(Color.white.opacity(0.2))
                     .cornerRadius(10)

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BulletPointTwo {
+struct BulletPointTwo: View {
     var icon: String
     var text: String
     

@@ -14,20 +14,20 @@ struct InfoView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
+               VStack(alignment: .leading, spacing: 16) {
                     
                     // App Icon oder Bild
                     Image("Icon")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 100, height: 100)
-                        .foregroundColor(.primary)
+                        .cornerRadius(5)
                         .padding(.top, 20)
                         .frame(maxWidth: .infinity)
                     
                     // Titel
                     Text("🌍 MyBucketList – Die Reise-App")
-                        .font(.title)
+                        .font(.title2)
                         .bold()
                         .multilineTextAlignment(.center)
                     
