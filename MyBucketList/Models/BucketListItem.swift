@@ -9,9 +9,18 @@ import Foundation
 import SwiftUI
 import Firebase
 
-struct BucketListItem: Identifiable {
+struct BucketListItem: Identifiable, Hashable {
     let id = UUID()
     var title: String
     var country: String
     var companion: Companion
+
+    // Hashable-Protokoll manuell implementieren (optional, aber empfohlen)
+    static func == (lhs: BucketListItem, rhs: BucketListItem) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }

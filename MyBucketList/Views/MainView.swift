@@ -10,11 +10,13 @@ import SwiftUI
 struct MainView: View {
     @State private var bucketList: [BucketListItem] = []
     @State private var showEditView = false
-    
+    @State private var selectedBucket: BucketListItem?
+
     var body: some View {
         NavigationStack {
-            ZStack{
+            ZStack {
                 MeshGradientView()
+
                 VStack {
                     if bucketList.isEmpty {
                         VStack(spacing: 10) {
@@ -23,30 +25,22 @@ struct MainView: View {
                                 .scaledToFit()
                                 .frame(width: 100, height: 100)
                                 .foregroundColor(.gray.opacity(0.5))
-                            
+
                             Text("Noch kein Bucket")
                                 .font(.headline)
                                 .foregroundColor(.gray)
                         }
                         .padding()
                     } else {
-                        List {
-                            ForEach(bucketList) { item in
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        Text(item.title)
-                                            .font(.headline)
-                                        Text(item.country)
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
-                                        Text("Mit: \(item.companion.rawValue)")
-                                            .font(.footnote)
-                                            .foregroundColor(.blue)
+                        ScrollView {
+                            VStack(spacing: 20) {
+                                ForEach(bucketList) { item in
+                                    NavigationLink(value: item) {
+                                        TileView(bucketItem: item)
                                     }
-                                    Spacer()
                                 }
-                                .padding(.vertical, 8)
                             }
+                            .padding()
                         }
                     }
                 }
@@ -65,10 +59,15 @@ struct MainView: View {
                         bucketList.append(newItem)
                     }
                 }
+                .navigationDestination(for: BucketListItem.self) { item in
+                    BucketListView(item: item)
+                }
             }
         }
     }
 }
+
+
 
 //#Preview {
 //    MainView()

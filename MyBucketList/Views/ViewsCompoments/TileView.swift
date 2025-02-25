@@ -12,8 +12,7 @@ struct TileView: View {
     var bucketItem: BucketListItem
     
     var body: some View {
-        ZStack {
-            MeshGradientView()
+        
             VStack {
                 ZStack(alignment: .topLeading) {
                     Image("Schatten")
@@ -59,7 +58,7 @@ struct TileView: View {
                 }
             }
             .padding(.horizontal, 30)
-        }
+        
     }
 }
 

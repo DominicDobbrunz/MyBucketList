@@ -10,7 +10,6 @@ import SwiftUI
 struct AddBucketView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var title: String = ""
-    
     var onAdd: (Bucket) -> Void
     
     var body: some View {
@@ -22,15 +21,15 @@ struct AddBucketView: View {
                 .padding(.horizontal)
             
             Button(action: {
-                let newBucket = Bucket(title: title)
+                let newBucket = Bucket(title: title, completed: false)
                 onAdd(newBucket)
                 dismiss()
             }) {
                 Text("Hinzufügen")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
+                    .background(Color.green1)
+                    .foregroundColor(.black)
                     .cornerRadius(10)
             }
             .padding(.horizontal)
@@ -41,12 +40,15 @@ struct AddBucketView: View {
                 Text("Abbrechen")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.red1)
+                    .background(Color.red1.opacity(0.8))
                     .foregroundColor(.black)
+                    .cornerRadius(10)
             }
             .padding(.horizontal)
         }
         .background(MeshGradientView().opacity(0.2).ignoresSafeArea())
     }
 }
+
+
 
