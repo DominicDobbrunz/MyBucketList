@@ -13,6 +13,11 @@ import FirebaseCore
 
 @main
 struct MyApp: App {
+    @StateObject private var userViewModel = UserViewModel()
+    @StateObject private var settingViewModel = SettingViewModel()
+    @StateObject private var mapViewModel = MapViewModel()
+    @StateObject private var weatherVM = WeatherVM()
+    
     init() {
         FirebaseApp.configure()
     }
@@ -20,9 +25,10 @@ struct MyApp: App {
     var body: some Scene {
         WindowGroup {
             LoadScreenView()
-                .environmentObject(UserViewModel())
-                .environmentObject(SettingViewModel())
-                .environmentObject(MapViewModel())
+                .environmentObject(userViewModel)
+                .environmentObject(settingViewModel)
+                .environmentObject(mapViewModel)
+                .environmentObject(weatherVM)
         }
     }
 }

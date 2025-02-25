@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingView: View {
     @StateObject private var settingVM = SettingViewModel()
     @Environment(\.dismiss) var dismiss
+    @State private var brightness: Double = UIScreen.main.brightness
     
     var body: some View {
         NavigationStack {
@@ -42,6 +43,19 @@ struct SettingView: View {
                             }
                             .pickerStyle(MenuPickerStyle())
                         }
+                        VStack(alignment: .leading) {
+                                            Text("Helligkeit")
+                                                .font(.headline)
+                                                .foregroundColor(.white)
+                                            
+                                            Slider(value: $brightness, in: 0...1, step: 0.01) { _ in
+                                                UIScreen.main.brightness = CGFloat(brightness) // Bildschirmhelligkeit setzen
+                                            }
+                                            .accentColor(.yellow)
+                                        }
+                                        .padding(.horizontal)
+                                        
+                                        Spacer()
                     }
                 }
             }

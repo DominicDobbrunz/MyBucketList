@@ -24,15 +24,15 @@ struct LikeView: View {
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 150, height: 150)
-                                .cornerRadius(12)
+                                .cornerRadius(10)
                             
                             Text(like.title)
                                 .font(.headline)
                                 .foregroundColor(.black)
                         }
                         .frame(width: 160, height: 200)
-                        .background(Color.white.opacity(0.8))
-                        .cornerRadius(12)
+                        .background(Color.green1.opacity(0.8))
+                        .cornerRadius(10)
                         .shadow(radius: 5)
                     }
                     

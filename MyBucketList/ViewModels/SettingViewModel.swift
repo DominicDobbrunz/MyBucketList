@@ -9,9 +9,25 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 import SwiftUI
+import Observation
+
 
 final class SettingViewModel: ObservableObject {
+    @AppStorage("lastLocationTrip")
+    @ObservationIgnored
+    var lastLocationTrip: String = "Berlin"
+    @AppStorage("lastLocationWeather")
+    @ObservationIgnored
+    var lastLocationWeather: String = "Grand Canyon"
+    var lastTripLocation: String {
+        get { lastLocationTrip }
+        set { lastLocationTrip = newValue }
+    }
     
+    var lastWheaterLocation: String {
+        get { lastLocationWeather }
+        set { lastLocationWeather = newValue }
+    }
     @Published var name: String = ""
     @Published var birthdate: Date = Date()
     @Published var gender: String = "Männlich"
