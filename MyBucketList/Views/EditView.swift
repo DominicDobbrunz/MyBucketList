@@ -30,7 +30,7 @@ struct EditView: View {
                     .padding(.horizontal)
                 
                 
-                TextField("Land", text: $country)
+                TextField("Wo geht es hin.", text: $country)
                     .padding()
                     .background(Color.white.opacity(0.2))
                     .cornerRadius(10)

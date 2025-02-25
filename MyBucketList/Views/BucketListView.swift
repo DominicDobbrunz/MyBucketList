@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BucketListView: View {
+    @Environment(\.dismiss) var dismiss
     var item: BucketListItem
     @State private var buckets: [Bucket] = []
     @State private var showAddBucketView = false
@@ -15,12 +16,13 @@ struct BucketListView: View {
     
     var body: some View {
         ZStack {
+            MeshGradientView()
             VStack {
                 Image("Schatten")
                     .resizable()
-                    .scaledToFill()
-                    .frame(width: .infinity)
-                    .frame(height: 200)
+                    .frame(width: 373, height: 120)
+                    .cornerRadius(8)
+                    .scaledToFit()
                     .clipped()
                     .overlay(
                         VStack {
@@ -28,11 +30,11 @@ struct BucketListView: View {
                             Text(item.title)
                                 .font(.largeTitle)
                                 .bold()
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                                 .shadow(radius: 10)
                             Text("Mit: \(item.companion.rawValue)")
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                         }
                             .padding(),
                         alignment: .bottomLeading
@@ -65,7 +67,7 @@ struct BucketListView: View {
                 
                 Spacer()
             }
-            .navigationTitle("Bucket Details")
+            .navigationTitle("Bucket Liste")
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
@@ -73,11 +75,24 @@ struct BucketListView: View {
                     }) {
                         Image(systemName: "plus.circle.fill")
                             .font(.largeTitle)
-                            .foregroundColor(.green)
-                            .padding(.top, 20)
+                            .background(.green1)
+                            .foregroundColor(.black)
+                            .padding(.top, 50)
                     }
                 }
             }
+            .navigationBarBackButtonHidden(true)
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button(action: {
+                                    dismiss()
+                                }) {
+                                    Image(systemName: "chevron.left")
+                                        .font(.title2)
+                                        .foregroundColor(.black)
+                                }
+                            }
+                        }
             .sheet(isPresented: $showAddBucketView) {
                 AddBucketView { newBucket in
                     buckets.append(newBucket)

@@ -14,7 +14,7 @@ struct LoadScreenView: View {
     @EnvironmentObject private var mapViewModel: MapViewModel
     
     var body: some View {
-        LoadView(title: "My Bucket List", image: .background1, content: SwitchView())
+        LoadView(title: "My Bucket List", image: .berge, content: SwitchView())
 //            .onAppear {
 //                  UIFont.familyNames.forEach { family in
 //                    print("Family: \(family)")

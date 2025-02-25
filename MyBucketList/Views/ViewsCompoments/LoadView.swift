@@ -19,7 +19,7 @@ struct LoadView<Content:View>: View {
             VStack(spacing:0) {
                 ZStack{
                     Text(title).bold().font(Font.custom("Baskerville", size: 45))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.blue)
                     
                         .opacity(show ? 1 : 0)
                         .offset(y: -100)
