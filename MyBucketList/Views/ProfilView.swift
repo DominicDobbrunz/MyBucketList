@@ -60,6 +60,7 @@ struct ProfilView: View {
                         
                         HStack {
                             Text("Wie alt bist du:")
+                                .foregroundColor(.black)
                                 .padding(.horizontal,18)
                             Spacer()
                             DatePicker("Geburtstag", selection: $settingVM.birthdate, displayedComponents: .date)
