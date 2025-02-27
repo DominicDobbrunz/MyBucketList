@@ -6,17 +6,19 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct BucketListView: View {
     @Environment(\.dismiss) var dismiss
     var item: BucketListItem
-    @State private var buckets: [Bucket] = []
+    @StateObject private var viewModel = BucketListViewModel()
     @State private var showAddBucketView = false
     @State private var showCompletionAlert = false
     
     var body: some View {
         ZStack {
             MeshGradientView()
+            
             VStack {
                 Image("Schatten")
                     .resizable()
@@ -28,7 +30,7 @@ struct BucketListView: View {
                         VStack {
                             Spacer()
                             Text(item.title)
-                                .font(.largeTitle)
+                                .font(.title2)
                                 .bold()
                                 .foregroundColor(.black)
                                 .shadow(radius: 10)
@@ -36,38 +38,36 @@ struct BucketListView: View {
                                 .font(.headline)
                                 .foregroundColor(.black)
                         }
-                            .padding(),
+                        .padding(),
                         alignment: .bottomLeading
                     )
                 
-                List {
-                    ForEach(buckets.indices, id: \.self) { index in
-                        HStack {
-                            Text("\(index + 1).")
-                                .font(.headline)
-                                .foregroundColor(.gray)
-                            Text(buckets[index].title)
-                            Spacer()
-                            if buckets[index].completed {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(.green)
-                            } else {
-                                Button(action: {
-                                    buckets[index].completed = true
-                                    checkIfAllCompleted()
-                                }) {
-                                    Image(systemName: "circle")
-                                        .foregroundColor(.gray)
-                                }
-                                .buttonStyle(BorderlessButtonStyle())
-                            }
+                // ✅ Wetter für den jeweiligen Ort anzeigen
+                WeatherView(item: item)
+                Spacer()
+                VStack {
+                    Text("Bucket Liste")
+                        .font(.headline)
+                        .foregroundStyle(.black)
+                    
+                    List {
+                        bucketListSection()
+                    }
+                    .listStyle(InsetGroupedListStyle())
+                    .scrollContentBackground(.hidden)
+                    //.background(MeshGradientView())
+                }
+            }
+            .onAppear {
+                        // ✅ Falls die Liste das erste Mal geöffnet wird, leeren wir sie
+                        if viewModel.isFirstOpen {
+                            viewModel.buckets = []
+                            viewModel.isFirstOpen = false // Danach normal speichern
+                        } else {
+                            viewModel.loadFromUserDefaults()
                         }
                     }
-                }
-                
-                Spacer()
-            }
-            .navigationTitle("Bucket Liste")
+            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
@@ -75,31 +75,32 @@ struct BucketListView: View {
                     }) {
                         Image(systemName: "plus.circle.fill")
                             .font(.largeTitle)
-                            .background(.green1)
                             .foregroundColor(.black)
-                            .padding(.top, 50)
+                            .padding(.bottom, 50)
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title2)
+                            .foregroundColor(.black)
                     }
                 }
             }
-            .navigationBarBackButtonHidden(true)
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                Button(action: {
-                                    dismiss()
-                                }) {
-                                    Image(systemName: "chevron.left")
-                                        .font(.title2)
-                                        .foregroundColor(.black)
-                                }
-                            }
-                        }
+            
+            // ✅ Sheet für das Hinzufügen von Buckets
             .sheet(isPresented: $showAddBucketView) {
                 AddBucketView { newBucket in
-                    buckets.append(newBucket)
+                    viewModel.buckets.append(newBucket)
+                    viewModel.saveToUserDefaults()
                 }
-                .presentationDetents([.medium, .large]) // Öffnet das Sheet zunächst auf mittlerer Höhe
-                .presentationDragIndicator(.visible) // Zeigt einen Zieh-Indikator
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
             }
+            
             .alert("Glückwunsch!", isPresented: $showCompletionAlert) {
                 Button("OK") {}
             } message: {
@@ -109,8 +110,42 @@ struct BucketListView: View {
     }
     
     private func checkIfAllCompleted() {
-        if buckets.allSatisfy({ $0.completed }) {
+        if viewModel.buckets.allSatisfy({ $0.completed }) {
             showCompletionAlert = true
         }
     }
+    
+    @ViewBuilder
+    private func bucketListSection() -> some View {
+        ForEach(viewModel.buckets) { bucket in
+            HStack { // ✅ Platz für den Haken erstellen
+                Text(bucket.title)
+                    .font(.headline)
+                    .foregroundColor(.black)
+                
+                Spacer()
+                
+                if bucket.completed {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(.green)
+                } else {
+                    Button(action: {
+                        if let index = viewModel.buckets.firstIndex(where: { $0.id == bucket.id }) {
+                            viewModel.markAsCompleted(index: index)
+                            checkIfAllCompleted()
+                        }
+                    }) {
+                        Image(systemName: "circle")
+                            .foregroundColor(.gray)
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
+                }
+            }
+            .padding(.vertical, 8)
+        }
+    }
+}
+
+#Preview {
+    BucketListView( item: BucketListItem(title: "Strand", country: "Griechenland", location: "Athen", companion: .alone))
 }

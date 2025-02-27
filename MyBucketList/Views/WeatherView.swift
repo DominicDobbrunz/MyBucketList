@@ -11,63 +11,51 @@ import Firebase
 
 struct WeatherView: View {
     
-    @EnvironmentObject var weatherVM : WeatherVM
-    @EnvironmentObject var settingViewModel: SettingViewModel
+    @StateObject private var weatherVM = WeatherVM()
+    //@EnvironmentObject var settingViewModel: SettingViewModel
+    var item: BucketListItem
     
     var body: some View {
-        ZStack {
-            MeshGradientView(opacity: 0.3).ignoresSafeArea()
-            
-            VStack {
-                
-//                @Bindable var appVM = settingViewModel
-                
-                TextField( "Stadt", text: $settingViewModel.lastWheaterLocation)
-                    .padding()
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(10)
-                    .padding(.horizontal, 24)
-                    .onSubmit{
-                        Task{
-                            await weatherVM.updateCityAndFetchWeather(city: settingViewModel.lastWheaterLocation)
-                        }
+        if let weather = weatherVM.weather {
+                      VStack {
+                          Text("Wettervorhersage für \(weather.location.name)")
+                              .font(.headline)
+                              .foregroundStyle(.black)
+                          
+                          ForEach(weather.forecast.forecastday, id: \.date) { day in
+                              HStack {
+                                  AsyncImage(url: URL(string: "https:\(day.day.condition.icon)")) { image in
+                                      image.resizable()
+                                          .frame(width: 40, height: 40)
+                                  } placeholder: {
+                                      ProgressView()
+                                  }
+                                  
+                                  Text(day.date)
+                                      .font(.subheadline)
+                                      .foregroundStyle(.black)
+                                  
+                                  Spacer()
+                                  
+                                  Text("\(Int(day.day.maxtemp_c))°C / \(Int(day.day.mintemp_c))°C")
+                                      .foregroundStyle(.black)
+                              }
+                              //.padding()
+                          }
+                      }
+                      .padding()
+        } else {
+            ProgressView()
+                .onAppear {
+                    Task {
+                        await weatherVM.loadWeather(city: item.location) // Wetter für den Ort holen
                     }
-                VStack {
-                    let weather = weatherVM.weather
-                    let iconUrl = URL(string: "https:\(weather?.current.condition.icon ?? "Icon konnte nicht geladen werden")")
-                    AsyncImage(url: iconUrl) { image in
-                        image.resizable()
-                            .scaledToFit()
-                            .frame(width: 350, height: 350)
-                    } placeholder: {
-                        ProgressView()
-                    }
-                    Text("\(String(format: "%.2f" ,weather?.current.temp_c ?? 0)) °C")
-                        .font(.largeTitle)
                 }
-                if let error = weatherVM.errorMessage {
-                    Text(error)
-                        .foregroundColor(.red)
-                        .padding()
-                }
-                
-                //            Button("Wetter laden") {
-                //                Task{
-                //                    await loadWeather()
-                //                }
-                //            }
-                //            .padding()
-                //            .background(Color.blue)
-                //            .foregroundColor(.white)
-                //            .cornerRadius(8)
-                Spacer()
-            }
-            .padding()
-            .onAppear{
-                Task {
-                    await weatherVM.loadWeather(city: settingViewModel.lastWheaterLocation)
-                }
-            }
         }
     }
+}
+
+#Preview {
+    WeatherView(item: BucketListItem(title: "Wandern", country: "Deutschland", location: "Harz", companion: .partner))
+        .environmentObject(WeatherVM())
 }

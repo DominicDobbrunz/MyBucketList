@@ -19,10 +19,10 @@ final class UserViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var isUserGreeted: Bool = false
     //ToDo: DeBug zwecken handish gesetzt
-//    var isUserSignedIn: Bool {
-//        user != nil
-//    }
-    @Published var isUserSignedIn: Bool = false
+    var isUserSignedIn: Bool {
+        user != nil
+    }
+    //@Published var isUserSignedIn: Bool = false
     
     var userID: String? {
         user?.uid

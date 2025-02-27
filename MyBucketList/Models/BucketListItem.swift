@@ -13,6 +13,7 @@ struct BucketListItem: Identifiable, Hashable {
     let id = UUID()
     var title: String
     var country: String
+    var location: String
     var companion: Companion
 
     // Hashable-Protokoll manuell implementieren (optional, aber empfohlen)

@@ -9,8 +9,8 @@ import Foundation
 import Firebase
 import SwiftUI
 
-struct Bucket: Identifiable {
-    var id = UUID()
+struct Bucket: Identifiable, Codable {
+    var id: UUID = UUID()
     var title: String
     var completed: Bool = false
 }

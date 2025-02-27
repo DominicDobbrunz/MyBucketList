@@ -37,7 +37,7 @@ struct DropMenuListView: View {
             .padding()
             .frame(maxWidth: .infinity)
             .frame(height: 53)
-            .background(.green1, in: RoundedRectangle(cornerRadius: 10))
+            .background(.grey1, in: RoundedRectangle(cornerRadius: 10))
             .onTapGesture {
                 withAnimation {
                     showList.toggle()
@@ -58,7 +58,7 @@ struct DropMenuListView: View {
                     .foregroundStyle(.black)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(.green1.opacity(showList ? 1 : (1 - Double(item) * 0.3)), in: RoundedRectangle(cornerRadius: 10))
+                    .background(.grey1.opacity(showList ? 1 : (1 - Double(item) * 0.3)), in: RoundedRectangle(cornerRadius: 10))
                 }
                 .offset(y: showList ? CGFloat(item * 58) : CGFloat(item * 8))
                 .scaleEffect(showList ? 1 : (1 - Double(item) * 0.04))

@@ -47,17 +47,17 @@ struct LoginView: View {
                 
                 
                 Button(action: {
-                    //                    Task {
-                    //                            await userViewModel.signIn(email: email, password: password)
-                    //                        }
-                    userViewModel.isUserSignedIn = true
+                                        Task {
+                                                await userViewModel.signIn(email: email, password: password)
+                                            }
+                    //userViewModel.isUserSignedIn = true
                     
                 }) {
                     Text("Anmelden")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.green1)
-                        .foregroundColor(.black)
+                        .background(Color.grey1)
+                        .foregroundColor(.white)
                         .cornerRadius(8)
                 }
                 .padding(.horizontal)
@@ -74,8 +74,8 @@ struct LoginView: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.green1)
-                    .foregroundColor(.black)
+                    .background(Color.grey1)
+                    .foregroundColor(.white)
                     .cornerRadius(8)
                     
                 }
@@ -91,8 +91,8 @@ struct LoginView: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.green1)
-                    .foregroundColor(.black)
+                    .background(Color.grey1)
+                    .foregroundColor(.white)
                     .cornerRadius(8)
                 }
                 .padding(.horizontal)

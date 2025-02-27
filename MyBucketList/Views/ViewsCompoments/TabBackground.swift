@@ -12,7 +12,7 @@ struct TabBackground: View {
         ZStack{
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(
-                    LinearGradient(gradient: Gradient(colors: [Color("green1"), .white]), startPoint: .top, endPoint: .bottomTrailing)
+                    LinearGradient(gradient: Gradient(colors: [Color("green1"), .green2]), startPoint: .top, endPoint: .bottomTrailing)
                 )
                 .blur(radius: 10)
                 .offset(x: -10, y: -10)

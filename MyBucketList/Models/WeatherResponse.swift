@@ -56,7 +56,23 @@ struct WeatherResponse: Codable {
         let gust_mph: Double
         let gust_kph: Double
     }
+    
+    struct Forecast: Codable {
+            let forecastday: [ForecastDay]
+        }
+
+        struct ForecastDay: Codable {
+            let date: String
+            let day: Day
+        }
+
+        struct Day: Codable {
+            let maxtemp_c: Double
+            let mintemp_c: Double
+            let condition: Condition
+        }
 
     let location: Location
     let current: Current
+    let forecast: Forecast
 }

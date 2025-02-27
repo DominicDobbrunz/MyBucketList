@@ -10,30 +10,22 @@ import SwiftUI
 import Observation
 
 @MainActor
-
 class WeatherVM: ObservableObject {
-    
-    var weather: WeatherResponse?
-    var errorMessage: String?
-    
-    init(weather: WeatherResponse? = nil, errorMessage: String? = nil) {
-        
-        self.weather = weather
-        self.errorMessage = errorMessage
-    }
-    
-    func loadWeather(city:String) async{
+    @Published var weather: WeatherResponse?
+    @Published var errorMessage: String?
+
+    func loadWeather(city: String) async {
         let weatherAPI = WeatherAPI(city: city)
         do {
             let fetchedWeather = try await weatherAPI.fetchWeather()
-            weather = fetchedWeather
+            DispatchQueue.main.async {
+                self.weather = fetchedWeather
+            }
         } catch {
-            errorMessage = error.localizedDescription
-            
+            DispatchQueue.main.async {
+                self.errorMessage = error.localizedDescription
+            }
         }
     }
-    
-    func updateCityAndFetchWeather(city: String) async {
-        await loadWeather(city: city)
-    }
 }
+

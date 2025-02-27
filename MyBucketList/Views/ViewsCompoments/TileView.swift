@@ -28,6 +28,9 @@ struct TileView: View {
                         Text(bucketItem.country)
                             .font(.footnote)
                             .foregroundColor(.black.opacity(0.7))
+                        Text(bucketItem.location)
+                            .font(.title3)
+                            .foregroundColor(.black)
                         
                         Text(bucketItem.title)
                             .font(.title)
@@ -50,11 +53,11 @@ struct TileView: View {
                 .overlay {
                     Image("Regestrieren")
                         .resizable()
-                        .frame(width: 350, height: 130)
+                        .frame(width: 350, height: 120)
                         .scaledToFit()
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .shadow(radius: 10)
-                        .padding(.top, 88)
+                        .padding(.top, 120)
                 }
             }
             .padding(.horizontal, 30)
@@ -63,7 +66,7 @@ struct TileView: View {
 }
 
 #Preview {
-    TileView(bucketItem: BucketListItem(title: "Abenteuer", country: "Australien", companion: .partner))
+    TileView(bucketItem: BucketListItem(title: "Abenteuer", country: "Australien", location: "Sydney", companion: .partner))
 }
 
 

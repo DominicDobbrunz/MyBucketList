@@ -16,6 +16,7 @@ struct EditView: View {
     @State private var title: String = ""
     @State private var country: String = ""
     @State private var companion: Companion = .alone
+    @State private var location: String = ""
     
     var onSave: (BucketListItem) -> Void
     
@@ -30,7 +31,13 @@ struct EditView: View {
                     .padding(.horizontal)
                 
                 
-                TextField("Wo geht es hin.", text: $country)
+                TextField("Land.", text: $country)
+                    .padding()
+                    .background(Color.white.opacity(0.2))
+                    .cornerRadius(10)
+                    .padding(.horizontal)
+                
+                TextField("Ort", text: $location)
                     .padding()
                     .background(Color.white.opacity(0.2))
                     .cornerRadius(10)
@@ -56,7 +63,7 @@ struct EditView: View {
                 
                 
                 Button(action: {
-                    let newItem = BucketListItem(title: title, country: country, companion: companion)
+                    let newItem = BucketListItem(title: title, country: country, location: location, companion: companion)
                     onSave(newItem)
                     dismiss()
                 }) {
