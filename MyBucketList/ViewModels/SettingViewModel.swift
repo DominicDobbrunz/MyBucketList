@@ -76,12 +76,4 @@ final class SettingViewModel: ObservableObject {
         ]
         db.collection("users").document(userId).setData(userData, merge: true)
     }
-    
-    func logout() {
-        do {
-            try Auth.auth().signOut()
-        } catch {
-            print("Fehler beim Logout: \(error.localizedDescription)")
-        }
-    }
 }

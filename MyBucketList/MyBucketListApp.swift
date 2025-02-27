@@ -15,7 +15,7 @@ import FirebaseCore
 struct MyApp: App {
     @StateObject private var userViewModel = UserViewModel()
     @StateObject private var settingViewModel = SettingViewModel()
-    @StateObject private var mapViewModel = MapViewModel()
+    //@StateObject private var mapViewModel = MapViewModel()
     @StateObject private var weatherVM = WeatherVM()
     
     init() {
@@ -27,7 +27,7 @@ struct MyApp: App {
             LoadScreenView()
                 .environmentObject(userViewModel)
                 .environmentObject(settingViewModel)
-                .environmentObject(mapViewModel)
+                //.environmentObject(mapViewModel)
                 .environmentObject(weatherVM)
         }
     }

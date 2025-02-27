@@ -7,98 +7,76 @@
 
 import SwiftUI
 import MapKit
+import Observation
 
 struct MapView: View {
-    @EnvironmentObject var viewModel: MapViewModel
+    
+    @State private var vm = MapViewModel()
     
     var body: some View {
-        ZStack {
-            VStack {
-            // 📍 Map mit Bindung zur Region
-            Map(coordinateRegion: $viewModel.region,
-                showsUserLocation: true,
-                annotationItems: viewModel.pointsOfInterest) { place in
-                MapAnnotation(coordinate: place.coordinate) {
-                    Button(action: {
-                        viewModel.selectedPlace = place
-                    }) {
-                        VStack {
-                            Image(systemName: "mappin.circle.fill")
-                                .foregroundColor(.red)
-                                .font(.title)
-                            Text(place.title)
-                                .font(.caption)
-                                .bold()
-                        }
+        NavigationStack {
+            Map(position: $vm.cameraPosition) {
+                
+                Marker("Mein Zuhause", coordinate: .home)
+                
+                UserAnnotation()
+                
+                if let currentPlace = vm.currentPlace {
+                    Annotation(currentPlace.name ?? "", coordinate: currentPlace.location?.coordinate ?? .home) {
+                        Image(systemName: "mappin")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundStyle(.white)
+                            .frame(width: 20, height: 20)
+                            .padding(4)
+                            .background(.mint, in: .circle)
+                            .contextMenu {
+                                Button("Get Direction") {
+                                    Task {
+                                        await vm.calculateRoute(destination: currentPlace.location?.coordinate ?? .home)
+                                    }
+                                }
+                                Button("Look Around Scene") {
+                                    Task {
+                                        await vm.getLookAroundScene(from: currentPlace.location?.coordinate ?? .home)
+                                        guard let _ = vm.lookAroundScene else { return }
+                                        vm.isShowingLookAroundScene = true
+                                    }
+                                }
+                            }
                     }
                 }
-            }
-            .frame(height: viewModel.isFullScreen ? UIScreen.main.bounds.height : UIScreen.main.bounds.height / 2)
-            .edgesIgnoringSafeArea(viewModel.isFullScreen ? .all : .top)
-            
-            // ❌ X-Button zum Verkleinern der Karte
-            if viewModel.isFullScreen {
-                Button(action: {
-                    viewModel.toggleFullScreen()
-                }) {
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.black)
-                        .font(.largeTitle)
-                        .padding()
+                
+                if let route = vm.route {
+                    MapPolyline(route.polyline)
+                        .stroke(.mint, lineWidth: 8)
                 }
+                
+//                Annotation("Allianz Arena", coordinate: .allianzArena) {
+//                    Image("bayern")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(width: 30, height: 30)
+//                        .background(.gray, in: .rect(cornerRadius: 10))
+//                }
             }
-            
-            // 📌 Sehenswürdigkeits-Info unten
-            if let place = viewModel.selectedPlace {
-                VStack {
-                    Spacer()
-                    VStack(alignment: .leading) {
-                        Text(place.title)
-                            .font(.title2)
-                            .bold()
-                        
-                        Text(place.subtitle ?? "Keine Beschreibung verfügbar")
-                            .font(.body)
-                            .foregroundColor(.secondary)
-                        
-                        Button(action: {
-                            openInMaps(coordinate: place.coordinate)
-                        }) {
-                            Label("Navigation starten", systemImage: "arrow.triangle.turn.up.right.circle.fill")
-                                .foregroundColor(.blue)
-                        }
-                    }
-                    .padding()
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(10)
-                    .padding()
-                }
+            .mapStyle(.standard)
+            .mapControls {
+                MapCompass()
+                MapUserLocationButton()
+                MapPitchToggle()
+                MapScaleView()
             }
-            
-            // 🔍 Toggle für Vollbildmodus
-                VStack {
-                    Spacer()
-                    Button(action: {
-                        viewModel.toggleFullScreen()
-                    }) {
-                        Text(viewModel.isFullScreen ? "Karte verkleinern" : "Karte vergrößern")
-                            .padding()
-                            .background(.green1)
-                            .foregroundColor(.black)
-                            .cornerRadius(10)
-                    }
-                    .padding()
-                }
+            .searchable(text: $vm.searchText)
+            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+            .onSubmit(of: .search) {
+                vm.getCoordinates(for: vm.searchText)
             }
-            .background(MeshGradientView())
+            .onAppear {
+                vm.locationManager.requestWhenInUseAuthorization()
+            }
+            .lookAroundViewer(isPresented: $vm.isShowingLookAroundScene, initialScene: vm.lookAroundScene)
         }
-    }
-    
-    func openInMaps(coordinate: CLLocationCoordinate2D) {
-        let placemark = MKPlacemark(coordinate: coordinate)
-        let mapItem = MKMapItem(placemark: placemark)
-        mapItem.name = "Zielort"
-        mapItem.openInMaps()
     }
 }
 
@@ -106,5 +84,5 @@ struct MapView: View {
 
 #Preview {
     MapView()
-        .environmentObject(MapViewModel())
+        
 }

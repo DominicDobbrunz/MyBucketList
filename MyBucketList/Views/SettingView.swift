@@ -43,17 +43,19 @@ struct SettingView: View {
                             }
                             .pickerStyle(MenuPickerStyle())
                         }
-                        VStack(alignment: .leading) {
-                                            Text("Helligkeit")
-                                                .font(.headline)
-                                                .foregroundColor(.white)
-                                            
-                                            Slider(value: $brightness, in: 0...1, step: 0.01) { _ in
-                                                UIScreen.main.brightness = CGFloat(brightness) // Bildschirmhelligkeit setzen
-                                            }
-                                            .accentColor(.yellow)
-                                        }
-                                        .padding(.horizontal)
+                        VStack(alignment: .leading, spacing: 8) {
+                                                   HStack {
+                                                       Image(systemName: "sun.max.fill")
+                                                           .foregroundColor(.gray)
+                                                       Text("Helligkeit")
+                                                  }
+                                                   
+                                                   Slider(value: $brightness, in: 0...1, step: 0.01) { _ in
+                                                       UIScreen.main.brightness = CGFloat(brightness) // Bildschirmhelligkeit setzen
+                                                   }
+                                                   .accentColor(.yellow)
+                                               }
+                                               .padding(.vertical, 8)
                                         
                                         Spacer()
                     }

@@ -76,8 +76,8 @@ struct ProfilView: View {
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.green1)
-                        .foregroundColor(.black)
+                        .background(Color.grey1)
+                        .foregroundColor(.white)
                         .cornerRadius(8)
                         .padding(.horizontal)
                         
@@ -113,7 +113,7 @@ struct ProfilView: View {
                         .padding(.bottom,280)
                     
                     Button(action: {
-                                        settingVM.logout()
+                                        userViewModel.signOut()
                                         presentationMode.wrappedValue.dismiss()
                                     }) {
                                         HStack {
@@ -123,8 +123,8 @@ struct ProfilView: View {
                                         }
                                         .frame(maxWidth: .infinity)
                                         .padding()
-                                        .background(Color.green1)
-                                        .foregroundColor(.black)
+                                        .background(Color.grey1)
+                                        .foregroundColor(.white)
                                         .cornerRadius(8)
                                     }
                                     .padding(.horizontal)

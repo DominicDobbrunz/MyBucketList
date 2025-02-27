@@ -32,8 +32,8 @@ struct AddLikeView: View {
                     Text("Hinzufügen")
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.green1)
-                        .foregroundColor(.black)
+                        .background(Color.grey1)
+                        .foregroundColor(.white)
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)
@@ -44,8 +44,8 @@ struct AddLikeView: View {
                     Text("Abbrechen")
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.red1)
-                        .foregroundColor(.black)
+                        .background(Color.grey1)
+                        .foregroundColor(.white)
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)

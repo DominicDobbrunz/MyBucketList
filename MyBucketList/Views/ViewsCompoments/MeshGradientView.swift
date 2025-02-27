@@ -15,7 +15,7 @@ struct MeshGradientView: View {
     var opacity: Double = 1
     
     // Bi-Color Gradient
-    let colors: [Color] = [ .red2, .red1]
+    let colors: [Color] = [ .blue2, .blue1]
     
     var body: some View {
         LinearGradient(gradient: Gradient(colors: colors), startPoint: gradientStart, endPoint: gradientEnd)

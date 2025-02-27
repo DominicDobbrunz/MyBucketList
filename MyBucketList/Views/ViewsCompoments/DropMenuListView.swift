@@ -28,12 +28,12 @@ struct DropMenuListView: View {
                 Text("Einstellungen und Hilfe")
                 Spacer()
                 Image(systemName: "chevron.forward").font(.system(size: 15))
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.white)
                     .rotationEffect(.degrees(showList ? 90 : 0))
                     
             }
             .bold()
-            .foregroundStyle(.black)
+            .foregroundStyle(.white)
             .padding()
             .frame(maxWidth: .infinity)
             .frame(height: 53)
@@ -55,7 +55,7 @@ struct DropMenuListView: View {
                         Spacer()
                         Image(systemName: "arrow.right")
                     }
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(.grey1.opacity(showList ? 1 : (1 - Double(item) * 0.3)), in: RoundedRectangle(cornerRadius: 10))

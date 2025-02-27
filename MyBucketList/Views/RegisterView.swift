@@ -59,11 +59,11 @@ struct RegisterView: View {
                         Rectangle()
                             .frame(width: 32, height: 32)
                             .cornerRadius(5)
-                            .foregroundColor(.green1)
+                            .foregroundColor(.grey1)
                             .overlay(
                                 Text(showPassword ? "🔓" : "🔒")
                                     .font(.system(size: 14))
-                                    .foregroundColor(.black)
+                                    //.foregroundColor(.black)
                             )
                     }
                 }
@@ -82,11 +82,11 @@ struct RegisterView: View {
                                        Rectangle()
                                            .frame(width: 32, height: 32)
                                            .cornerRadius(5)
-                                           .foregroundColor(.green1)
+                                           .foregroundColor(.grey1)
                                            .overlay(
                                                Text(showConfirmPassword ? "🔓" : "🔒")
                                                    .font(.system(size: 14))
-                                                   .foregroundColor(.black)
+                                                   //.foregroundColor(.black)
                                            )
                                    }
                                }
@@ -112,8 +112,8 @@ struct RegisterView: View {
                     Text("Auf zum Bucket")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.green1)
-                        .foregroundColor(.black)
+                        .background(Color.grey1)
+                        .foregroundColor(.white)
                         .cornerRadius(8)
                 }
                 .padding(.horizontal)

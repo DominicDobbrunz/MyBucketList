@@ -4,58 +4,103 @@
 //
 //  Created by Dominic Dobbrunz on 13.02.25.
 //
-
-import Firebase
-import FirebaseAuth
-import FirebaseFirestore
-import Foundation
 import SwiftUI
 import MapKit
+import Observation
 
-class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+@Observable
+class MapViewModel {
+    var searchText: String = ""
     
-    @Published var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 48.137154, longitude: 11.576124), // München als Standardort
-        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-    )
+    var currentPlace: CLPlacemark?
     
-    @Published var locationManager = CLLocationManager()
-    @Published var userLocation: CLLocationCoordinate2D?
-    @Published var pointsOfInterest: [CustomAnnotation] = []
-    @Published var selectedPlace: CustomAnnotation? = nil
-    @Published var isFullScreen: Bool = false
+    var cameraPosition: MapCameraPosition = .region(.init(center: .home, latitudinalMeters: 1000, longitudinalMeters: 1000))
     
-    override init() {
-        super.init()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-        
-        // Beispiel-Sehenswürdigkeiten hinzufügen
-        addCustomPlace(title: "Eiffelturm", description: "Berühmter Turm in Paris", coordinate: CLLocationCoordinate2D(latitude: 48.858844, longitude: 2.294351))
-        addCustomPlace(title: "Brandenburger Tor", description: "Historisches Denkmal in Berlin", coordinate: CLLocationCoordinate2D(latitude: 52.516274, longitude: 13.377704))
+    var locationManager = CLLocationManager()
+    
+    var route: MKRoute?
+    
+    var lookAroundScene: MKLookAroundScene?
+    var isShowingLookAroundScene = false
+    
+    
+    init() {
+        Task {
+            await setUserLocation()
+        }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            DispatchQueue.main.async {
-                self.userLocation = location.coordinate
-                self.region.center = location.coordinate
+    func getLookAroundScene(from coordinate: CLLocationCoordinate2D) async {
+        do {
+            self.lookAroundScene = try await MKLookAroundSceneRequest(coordinate: coordinate).scene
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
+    
+    func getCoordinates(for locationName: String) {
+        Task {
+            guard let placemark = try? await CLGeocoder().geocodeAddressString(locationName).first else {
+                return
             }
+            
+            self.currentPlace = placemark
+            
+            guard let location = placemark.location else {
+                print("No Location")
+                return
+            }
+            
+            self.cameraPosition = .region(.init(center: location.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000))
+            
         }
     }
     
-    func addCustomPlace(title: String, description: String, coordinate: CLLocationCoordinate2D) {
-        let newPlace = CustomAnnotation(title: title, subtitle: description, coordinate: coordinate)
-        DispatchQueue.main.async {
-            self.pointsOfInterest.append(newPlace)
+    private func getUserLocation() async -> CLLocationCoordinate2D? {
+        let updates = CLLocationUpdate.liveUpdates()
+        do {
+            let update = try await updates.first() { $0.location?.coordinate != nil }
+            return update?.location?.coordinate
+        } catch {
+            print(error.localizedDescription)
+            return nil
         }
     }
     
-    func toggleFullScreen() {
-        withAnimation {
-            isFullScreen.toggle()
+    func setUserLocation() async {
+        let updates = CLLocationUpdate.liveUpdates()
+        
+        do {
+            let update = try await updates.first() { $0.location?.coordinate != nil }
+            guard let userLocation = update?.location?.coordinate else { return }
+            self.cameraPosition = .region(.init(center: userLocation, latitudinalMeters: 1000, longitudinalMeters: 1000))
+        } catch {
+            print("error getting user location")
+            return
+        }
+    }
+    
+    func calculateRoute(destination: CLLocationCoordinate2D) async {
+        let directionRequest = MKDirections.Request()
+        
+        guard let userLocation = await getUserLocation() else { return }
+                
+        directionRequest.source = MKMapItem(placemark: MKPlacemark(coordinate: userLocation))
+        directionRequest.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination))
+        directionRequest.transportType = .automobile
+        
+        Task {
+            let directions = MKDirections(request: directionRequest)
+            let response = try? await directions.calculate()
+            self.route = response?.routes.first
         }
     }
 }
+
+extension CLLocationCoordinate2D {
+    static var home = CLLocationCoordinate2D(latitude: 52.5502108, longitude: 13.7793314)
+    
+}
+
 

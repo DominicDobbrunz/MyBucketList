@@ -99,6 +99,7 @@ struct BucketListView: View {
                 }
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
+                .presentationBackground(.ultraThinMaterial)
             }
             
             .alert("Glückwunsch!", isPresented: $showCompletionAlert) {

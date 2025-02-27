@@ -62,6 +62,9 @@ struct LikeView: View {
                 AddLikeView { newLike in
                     likes.append(newLike)  // Neues Like zur Liste hinzufügen
                 }
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+                .presentationBackground(.ultraThinMaterial)
             }
             .background(MeshGradientView())
         }

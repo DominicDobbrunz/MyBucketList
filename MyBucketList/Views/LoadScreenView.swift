@@ -7,11 +7,12 @@
 
 
 import SwiftUI
+import MapKit
 
 struct LoadScreenView: View {
     @EnvironmentObject private var userViewModel: UserViewModel
     @EnvironmentObject private var settingViewModel: SettingViewModel
-    @EnvironmentObject private var mapViewModel: MapViewModel
+    //@EnvironmentObject private var mapViewModel: MapViewModel
     
     var body: some View {
         LoadView(title: "My Bucket List", image: .berge, content: SwitchView())
@@ -31,6 +32,6 @@ struct LoadScreenView: View {
     LoadScreenView()
         .environmentObject(userVM)
         .environmentObject(SettingViewModel())
-        .environmentObject(MapViewModel())
+        //.environmentObject(MapViewModel())
         
 }

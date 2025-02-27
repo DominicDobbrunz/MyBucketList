@@ -58,6 +58,7 @@ struct MainView: View {
                     EditView { newItem in
                         bucketList.append(newItem)
                     }
+                    .presentationBackground(.ultraThinMaterial)
                 }
                 .navigationDestination(for: BucketListItem.self) { item in
                     BucketListView(item: item)

@@ -28,7 +28,7 @@ struct TabuView: View {
                                     if selectedTab == item.tap{
                                         Circle()
                                             .frame(width: 8, height: 8)
-                                            .foregroundStyle(Color("red1"))
+                                            .foregroundStyle(Color("violet"))
                                             .padding(.top, 39)
                                         
                                     }
@@ -36,7 +36,7 @@ struct TabuView: View {
                             )
                             .frame(maxWidth: .infinity)
                         })
-                        .foregroundStyle(selectedTab == item.tap ? Color("red1"): .secondary)
+                        .foregroundStyle(selectedTab == item.tap ? Color("violet"): .secondary)
                     }
                 }
                 .frame(width: 350, height: 70)

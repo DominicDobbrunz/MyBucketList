@@ -14,7 +14,7 @@ struct AddBucketView: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            TextField("Bucket-Titel", text: $title)
+            TextField("Bucket!", text: $title)
                 .padding()
                 .background(Color.white.opacity(0.2))
                 .cornerRadius(10)
@@ -28,8 +28,8 @@ struct AddBucketView: View {
                 Text("Hinzufügen")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.green1)
-                    .foregroundColor(.black)
+                    .background(Color.grey1)
+                    .foregroundColor(.white)
                     .cornerRadius(10)
             }
             .padding(.horizontal)
@@ -40,8 +40,8 @@ struct AddBucketView: View {
                 Text("Abbrechen")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.red1.opacity(0.8))
-                    .foregroundColor(.black)
+                    .background(Color.grey1)
+                    .foregroundColor(.white)
                     .cornerRadius(10)
             }
             .padding(.horizontal)
