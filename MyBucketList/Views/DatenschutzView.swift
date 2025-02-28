@@ -74,7 +74,7 @@ struct DatenschutzView: View {
                             .bold()
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(agreedToPolicy ? Color.green1 : Color.gray)
+                            .background(agreedToPolicy ? Color.grey1 : Color.white)
                             .foregroundColor(.black)
                             .cornerRadius(10)
                     }
