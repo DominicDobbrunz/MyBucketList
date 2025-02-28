@@ -22,9 +22,10 @@ struct RegisterView: View {
             VStack(spacing: 20) {
                 
                 VStack {
-                    Image("Regestrieren")
+                    Image("RegestrierEN")
                         .resizable()
-                        .frame(width: 373, height: 120)
+                        .frame(width: 350, height: 120)
+                        .shadow(radius: 5)
                         .cornerRadius(8)
                         .scaledToFit()
                         

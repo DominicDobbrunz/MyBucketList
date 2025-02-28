@@ -19,10 +19,11 @@ struct LoginView: View {
             VStack(spacing: 20) {
                 
                 VStack {
-                    Image("Login")
+                    Image("LogIn")
                         .resizable()
-                        .frame(width: 373, height: 120)
+                        .frame(width: 350, height: 120)
                         .cornerRadius(8)
+                        .shadow(radius: 5)
                         .scaledToFit()
                     
                     
