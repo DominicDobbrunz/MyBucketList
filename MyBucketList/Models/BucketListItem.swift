@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 import Firebase
 
-struct BucketListItem: Identifiable, Hashable {
-    let id = UUID()
+struct BucketListItem: Identifiable, Codable, Hashable {
+    var id = UUID()
     var title: String
     var country: String
     var location: String

@@ -64,7 +64,7 @@ struct BucketListView: View {
                             viewModel.buckets = []
                             viewModel.isFirstOpen = false // Danach normal speichern
                         } else {
-                            viewModel.loadFromUserDefaults()
+                            viewModel.buckets = viewModel.loadFromUserDefaults()
                         }
                     }
             .navigationBarBackButtonHidden(true)

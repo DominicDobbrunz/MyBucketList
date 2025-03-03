@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct LikeItem: Identifiable {
-    let id = UUID()
+struct LikeItem: Identifiable, Codable {
+    var id = UUID()
     var title: String
     var imageName: String
 }
