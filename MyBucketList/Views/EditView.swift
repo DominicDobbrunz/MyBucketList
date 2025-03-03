@@ -42,24 +42,24 @@ struct EditView: View {
                     .background(Color.white.opacity(0.2))
                     .cornerRadius(10)
                     .padding(.horizontal)
-                
-                HStack {
-                    Text("Mit wem?")
-                        .font(.headline)
-                        .foregroundColor(.black)
-                        .padding(.horizontal)
-                    Spacer()
-                    Picker("Mit wem?", selection: $companion) {
-                        ForEach(Companion.allCases) { option in
-                            Text(option.rawValue).tag(option)
-                        }
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                    .padding()
-                    .background(Color.white.opacity(0.2))
-                    .cornerRadius(10)
-                    .padding(.horizontal)
-                }
+                CompanionPicker(selection: $companion)
+//                HStack {
+//                    Text("Mit wem?")
+//                        .font(.headline)
+//                        .foregroundColor(.black)
+//                        .padding(.horizontal)
+//                    Spacer()
+//                    Picker("Mit wem?", selection: $companion) {
+//                        ForEach(Companion.allCases) { option in
+//                            Text(option.rawValue).tag(option)
+//                        }
+//                    }
+//                    .pickerStyle(MenuPickerStyle())
+//                    .padding()
+//                    .background(Color.grey1.opacity(0.2))
+//                    .cornerRadius(10)
+//                    .padding(.horizontal)
+//                }
                 
                 
                 Button(action: {
@@ -75,7 +75,7 @@ struct EditView: View {
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)
-
+                
                 Button(action: {
                     dismiss()
                 }) {
@@ -87,11 +87,11 @@ struct EditView: View {
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)
-
+                
                 Spacer()
             }
             .navigationTitle("Neuer Bucket")
-            .background(MeshGradientView().opacity(0.2).ignoresSafeArea()) 
+            .background(MeshGradientView().opacity(0.2).ignoresSafeArea())
         }
     }
 }

@@ -41,7 +41,7 @@ final class SettingViewModel: ObservableObject {
     
     
     let genderOptions = ["Männlich", "Weiblich", "Divers"]
-    let occupationOptions = ["Sonnenfreund", "Abenteuerfreund", "Stadtfreund", "Landschaftsfreund"]
+    let occupationOptions = ["Sonnenfreund", "Abenteuerfreund", "Stadtfreund", "Landschaftsfreund", "Schneefreund"]
     
     private var db = Firestore.firestore()
     private var userId: String? {

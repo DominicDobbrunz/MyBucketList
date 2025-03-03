@@ -52,7 +52,7 @@ struct LikeView: View {
                                    .foregroundColor(.black)
                            }
                            .frame(width: 160, height: 200)
-                           .background(Color.gray.opacity(0.3))
+                           .background(Color.grey1.opacity(0.3))
                            .cornerRadius(12)
                        }
                    }

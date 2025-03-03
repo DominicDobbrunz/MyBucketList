@@ -11,7 +11,7 @@ import Firebase
 struct BucketListView: View {
     @Environment(\.dismiss) var dismiss
     var item: BucketListItem
-    @StateObject private var viewModel = BucketListViewModel()
+    @ObservedObject var viewModel: BucketListViewModel // ✅ Hier als @ObservedObject übergeben
     @State private var showAddBucketView = false
     @State private var showCompletionAlert = false
     
@@ -27,24 +27,26 @@ struct BucketListView: View {
                     .scaledToFit()
                     .clipped()
                     .overlay(
-                        VStack {
+                        VStack(alignment: .leading) { // ✅ Schrift untereinander setzen
                             Spacer()
                             Text(item.title)
                                 .font(.title2)
                                 .bold()
                                 .foregroundColor(.black)
                                 .shadow(radius: 10)
+                                .frame(maxWidth: .infinity, alignment: .leading) // Links ausrichten
+                            
                             Text("Mit: \(item.companion.rawValue)")
                                 .font(.headline)
                                 .foregroundColor(.black)
+                                .frame(maxWidth: .infinity, alignment: .leading) // Links ausrichten
                         }
                         .padding(),
                         alignment: .bottomLeading
                     )
                 
-                // ✅ Wetter für den jeweiligen Ort anzeigen
                 WeatherView(item: item)
-                Spacer()
+                
                 VStack {
                     Text("Bucket Liste")
                         .font(.headline)
@@ -55,19 +57,8 @@ struct BucketListView: View {
                     }
                     .listStyle(InsetGroupedListStyle())
                     .scrollContentBackground(.hidden)
-                    //.background(MeshGradientView())
                 }
             }
-            .onAppear {
-                        // ✅ Falls die Liste das erste Mal geöffnet wird, leeren wir sie
-                        if viewModel.isFirstOpen {
-                            viewModel.buckets = []
-                            viewModel.isFirstOpen = false // Danach normal speichern
-                        } else {
-                            viewModel.buckets = viewModel.loadFromUserDefaults()
-                        }
-                    }
-            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
@@ -91,11 +82,9 @@ struct BucketListView: View {
                 }
             }
             
-            // ✅ Sheet für das Hinzufügen von Buckets
             .sheet(isPresented: $showAddBucketView) {
                 AddBucketView { newBucket in
-                    viewModel.buckets.append(newBucket)
-                    viewModel.saveToUserDefaults()
+                    viewModel.addBucket(newBucket) // ✅ Speichern über ViewModel
                 }
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
@@ -119,12 +108,11 @@ struct BucketListView: View {
     @ViewBuilder
     private func bucketListSection() -> some View {
         ForEach(viewModel.buckets) { bucket in
-            HStack { // ✅ Platz für den Haken erstellen
+            HStack {
                 Text(bucket.title)
                     .font(.headline)
                     .foregroundColor(.black)
-                
-                Spacer()
+                    .frame(maxWidth: .infinity, alignment: .leading) // Links ausrichten
                 
                 if bucket.completed {
                     Image(systemName: "checkmark.circle.fill")
@@ -147,6 +135,7 @@ struct BucketListView: View {
     }
 }
 
+
 #Preview {
-    BucketListView( item: BucketListItem(title: "Strand", country: "Griechenland", location: "Athen", companion: .alone))
+    BucketListView( item: BucketListItem(title: "Strand", country: "Griechenland", location: "Athen", companion: .alone), viewModel: BucketListViewModel())
 }

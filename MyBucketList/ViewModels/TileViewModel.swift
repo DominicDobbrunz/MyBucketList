@@ -34,4 +34,11 @@ class TileViewModel: ObservableObject {
             self.tiles = decoded
         }
     }
+    
+    // ✅ Löscht ein Bucket-Item aus der Liste und speichert es
+        func removeTile(_ item: BucketListItem) {
+            if let index = tiles.firstIndex(where: { $0.id == item.id }) {
+                tiles.remove(at: index)
+            }
+        }
 }

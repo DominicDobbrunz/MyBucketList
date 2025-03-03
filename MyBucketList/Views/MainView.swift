@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct MainView: View {
-    @StateObject private var tileViewModel = TileViewModel()
+    @StateObject private var bucketListViewModel = BucketListViewModel()
+    //@StateObject private var tileViewModel = TileViewModel()
     @State private var bucketList: [BucketListItem] = []
     @State private var showEditView = false
     @State private var selectedBucket: BucketListItem?
@@ -16,33 +18,32 @@ struct MainView: View {
     var body: some View {
             NavigationStack {
                 ZStack {
-                    MeshGradientView()
+                    MeshGradientView() // ✅ Hintergrund bleibt konsistent
 
                     VStack {
-                        if tileViewModel.tiles.isEmpty { // ✅ Prüft direkt auf gespeicherte Tiles
-                            VStack(spacing: 10) {
-                                Image(systemName: "house")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 100, height: 100)
-                                    .foregroundColor(.gray.opacity(0.5))
+                                       if bucketListViewModel.buckets.isEmpty {
+                                           VStack(spacing: 10) {
+                                               Image(systemName: "house")
+                                                   .resizable()
+                                                   .scaledToFit()
+                                                   .frame(width: 100, height: 100)
+                                                   .foregroundColor(.gray.opacity(0.5))
 
-                                Text("Noch kein Bucket")
-                                    .font(.headline)
-                                    .foregroundColor(.gray)
-                            }
-                            .padding()
-                        } else {
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                LazyHStack(spacing: 16) {
-                                    ForEach(tileViewModel.tiles) { item in
-                                        TileView(bucketItem: item)
-                                    }
-                                }
-                                .padding(.horizontal)
-                            }
-                        }
-                    }
+                                               Text("Noch kein Bucket")
+                                                   .font(.headline)
+                                                   .foregroundColor(.grey1)
+                                           }
+                                           .padding()
+                                       } else {
+                                           ScrollView {
+                                               ForEach(bucketListViewModel.buckets) { item in
+                                                   NavigationLink(destination: BucketListView(item: item, viewModel: bucketListViewModel)) {
+                                                       TileView(bucketItem: item)
+                                                   }
+                                               }
+                                           }
+                                       }
+                                   }
                     
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
@@ -53,22 +54,16 @@ struct MainView: View {
                             }
                         }
                     }
-                    
-                    // ✅ EditView speichert neue Tiles direkt ins ViewModel
+
                     .sheet(isPresented: $showEditView) {
                         EditView { newItem in
-                            tileViewModel.tiles.append(newItem) // ✅ Speicherung ins ViewModel
+                            BucketListViewModel.tiles.append(newItem) // ✅ Neues Item wird oben angezeigt
                         }
                         .presentationBackground(.ultraThinMaterial)
                     }
-
-                    .navigationDestination(for: BucketListItem.self) { item in
-                        BucketListView(item: item)
-                    }
                 }
             }
-        }
-}
+        }}
 
 
 
@@ -77,3 +72,6 @@ struct MainView: View {
 //        .environmentObject(UserViewModel())
 //}
 //
+/*
+ 
+ */

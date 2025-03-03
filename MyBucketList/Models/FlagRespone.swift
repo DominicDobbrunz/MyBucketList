@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FlagRespone: Codable {
+struct FlagResponse: Codable {
     
     let continentCode : String
     let continetName: String
