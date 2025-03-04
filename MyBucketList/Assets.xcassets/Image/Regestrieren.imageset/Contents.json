@@ -1,12 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "Regestrieren.jpg",
+      "filename" : "RegestrierEN.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Login.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },

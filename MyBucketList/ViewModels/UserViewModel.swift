@@ -9,6 +9,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 
+@MainActor
 final class UserViewModel: ObservableObject {
     
     private var auth = Auth.auth()

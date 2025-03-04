@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct BucketRowView: View {
-    var bucket: Bucket
+    var bucket: BucketListItem
 
     var body: some View {
         HStack {

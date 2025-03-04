@@ -80,6 +80,7 @@ struct BucketListView: View {
                             .foregroundColor(.black)
                     }
                 }
+                
             }
             
             .sheet(isPresented: $showAddBucketView) {
@@ -96,6 +97,7 @@ struct BucketListView: View {
             } message: {
                 Text("Du hast deine gesamte Liste erfolgreich abgeschlossen!")
             }
+            .navigationBarBackButtonHidden()
         }
     }
     

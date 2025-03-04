@@ -15,6 +15,7 @@ struct BucketListItem: Identifiable, Codable, Hashable {
     var country: String
     var location: String
     var companion: Companion
+    var completed: Bool = false
 
     // Hashable-Protokoll manuell implementieren (optional, aber empfohlen)
     static func == (lhs: BucketListItem, rhs: BucketListItem) -> Bool {

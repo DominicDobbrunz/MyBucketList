@@ -10,7 +10,7 @@ import SwiftUI
 struct AddBucketView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var title: String = ""
-    var onAdd: (Bucket) -> Void
+    var onAdd: (BucketListItem) -> Void
     
     var body: some View {
         VStack(spacing: 20) {
@@ -21,7 +21,7 @@ struct AddBucketView: View {
                 .padding(.horizontal)
             
             Button(action: {
-                let newBucket = Bucket(title: title, completed: false)
+                let newBucket = BucketListItem(title: title, country: "Unbekannt", location: "Unbekannt", companion: .alone, completed: false)
                 onAdd(newBucket)
                 dismiss()
             }) {

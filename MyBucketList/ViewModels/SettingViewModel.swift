@@ -36,7 +36,9 @@ final class SettingViewModel: ObservableObject {
     @Published var isEditing: Bool = false
     @Published var isLocationEnabled: Bool = false
     @Published var selectedLanguage: String = "Deutsch"
-        
+    
+    @Published var selectedOccupation: Occupation?
+
     let languages = ["Deutsch", "Englisch", "Französisch", "Spanisch", "Italienisch"]
     
     
@@ -59,14 +61,16 @@ final class SettingViewModel: ObservableObject {
                 self.name = data["name"] as? String ?? ""
                 self.birthdate = (data["birthdate"] as? Timestamp)?.dateValue() ?? Date()
                 self.gender = data["gender"] as? String ?? "Männlich"
-                self.occupation = data["occupation"] as? String ?? "Sonnenfreund"
+                self.selectedOccupation = data["occupation"] as? Occupation ?? .sun
                 self.isDarkMode = data["isDarkMode"] as? Bool ?? false
+                
             }
         }
     }
 
     func saveUserData() {
         guard let userId = userId else { return }
+        guard let occupation = selectedOccupation?.rawValue else { return }
         let userData: [String: Any] = [
             "name": name,
             "birthdate": birthdate,

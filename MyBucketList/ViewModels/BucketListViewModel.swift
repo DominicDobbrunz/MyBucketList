@@ -10,7 +10,7 @@ import SwiftUI
 import Firebase
 
 class BucketListViewModel: ObservableObject {
-    @Published var buckets: [Bucket] = [] // Direkt mit leerem Array initialisieren
+    @Published var buckets: [BucketListItem] = [] // Direkt mit leerem Array initialisieren
     private let userDefaultsKey = "savedBuckets"
     var isFirstOpen = true
 
@@ -21,7 +21,7 @@ class BucketListViewModel: ObservableObject {
 
     
     
-    func addBucket(_ bucket: Bucket) {
+    func addBucket(_ bucket: BucketListItem) {
         buckets.append(bucket)
         saveToUserDefaults()
     }
@@ -37,9 +37,9 @@ class BucketListViewModel: ObservableObject {
         }
     }
 
-    func loadFromUserDefaults() -> [Bucket] {
+    func loadFromUserDefaults() -> [BucketListItem] {
         if let savedData = UserDefaults.standard.data(forKey: userDefaultsKey),
-           let decoded = try? JSONDecoder().decode([Bucket].self, from: savedData) {
+           let decoded = try? JSONDecoder().decode([BucketListItem].self, from: savedData) {
             return decoded
         }
         return [] // Falls kein gespeicherter Wert existiert, geben wir ein leeres Array zurück

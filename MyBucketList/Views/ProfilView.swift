@@ -17,12 +17,16 @@ struct ProfilView: View {
             ZStack{
                 MeshGradientView()
                 VStack(spacing: 20) {
+                    if let image = settingVM.selectedOccupation?.getImage() {
+                        Image(image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 100)
+                            .clipShape(Circle())
+                            .shadow(radius: 10)
+                            .padding(.top, 20)
+                    }
                     
-                    Image(systemName: "person.circle.fill")
-                        .resizable()
-                        .frame(width: 100, height: 100)
-                        .foregroundColor(.gray)
-                        .padding(.top, 20)
                     
                     if settingVM.isEditing {
                         TextField("Name", text: $settingVM.name)
@@ -48,9 +52,9 @@ struct ProfilView: View {
                                 .foregroundColor(.black)
                                 
                             Spacer()
-                            Picker("", selection: $settingVM.occupation) {
-                                ForEach(settingVM.occupationOptions, id: \.self) { option in
-                                    Text(option)
+                            Picker("", selection: $settingVM.selectedOccupation) {
+                                ForEach(Occupation.allCases, id: \.self) { option in
+                                    Text(option.rawValue).tag(option)
                                 }
                             }
                             .pickerStyle(MenuPickerStyle())

@@ -58,7 +58,7 @@ struct TileView: View {
                 }
             }
             .overlay {
-                Image("Regestrieren")
+                Image("RegestrierEN")
                     .resizable()
                     .frame(width: 350, height: 120)
                     .scaledToFit()
