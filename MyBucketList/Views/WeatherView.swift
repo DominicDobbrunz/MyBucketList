@@ -56,6 +56,6 @@ struct WeatherView: View {
 }
 
 #Preview {
-    WeatherView(item: BucketListItem(title: "Wandern", country: "Deutschland", location: "Harz", companion: .partner))
+    WeatherView(item: BucketListItem(title: "Wandern", country: "Deutschland", location: "Harz", companion: .partner, picture: .sun))
         .environmentObject(WeatherVM())
 }

@@ -139,5 +139,5 @@ struct BucketListView: View {
 
 
 #Preview {
-    BucketListView( item: BucketListItem(title: "Strand", country: "Griechenland", location: "Athen", companion: .alone), viewModel: BucketListViewModel())
+    BucketListView( item: BucketListItem(title: "Strand", country: "Griechenland", location: "Athen", companion: .alone, picture: .sun), viewModel: BucketListViewModel())
 }

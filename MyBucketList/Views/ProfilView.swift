@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+
 struct ProfilView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @StateObject private var settingVM = SettingViewModel()

@@ -21,7 +21,7 @@ struct AddBucketView: View {
                 .padding(.horizontal)
             
             Button(action: {
-                let newBucket = BucketListItem(title: title, country: "Unbekannt", location: "Unbekannt", companion: .alone, completed: false)
+                let newBucket = BucketListItem(title: title, country: "Unbekannt", location: "Unbekannt", companion: .alone, picture: .sun, completed: false)
                 onAdd(newBucket)
                 dismiss()
             }) {

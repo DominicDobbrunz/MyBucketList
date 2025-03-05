@@ -22,7 +22,7 @@ enum Occupation: String, Identifiable, CaseIterable {
         case .sun:
             "Sonne"
         case .adventure:
-            "Abentuer"
+            "Abenteuer"
         case .city:
             "Stadt"
         case .landscape:

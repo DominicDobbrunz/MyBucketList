@@ -23,11 +23,11 @@ struct CompanionPicker: View {
                     Text(option.rawValue).tag(option)
                 }
             }
-            .pickerStyle(MenuPickerStyle())
-            .padding()
-            .background(Color.grey1.opacity(0.2))
-            .cornerRadius(10)
-            .padding(.horizontal)
         }
+        .pickerStyle(MenuPickerStyle())
+        .padding()
+        .background(Color.grey1.opacity(0.2))
+        .cornerRadius(10)
+        .padding(.horizontal)
     }
 }

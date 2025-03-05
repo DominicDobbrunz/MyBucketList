@@ -11,6 +11,7 @@ import Firebase
 struct TileView: View {
     var bucketItem: BucketListItem
     @EnvironmentObject var tileViewModel: TileViewModel // Zugriff auf das ViewModel
+    
     @State private var showDeleteAlert = false // Zeigt den Bestätigungs-Alert an
 
     var body: some View {
@@ -48,9 +49,10 @@ struct TileView: View {
                 HStack {
                     Spacer()
                     Button {
-                        showDeleteAlert = true // Zeigt den Alert an
+                        
+                       // kommen noch Funktionen hinzu.
                     } label: {
-                        Image(systemName: "trash.circle")
+                        Image(systemName: "ellipsis.circle")
                             .font(.title2)
                             .foregroundColor(.white.opacity(0.8))
                             .padding()
@@ -58,16 +60,25 @@ struct TileView: View {
                 }
             }
             .overlay {
-                Image("RegestrierEN")
-                    .resizable()
-                    .frame(width: 350, height: 120)
-                    .scaledToFit()
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                    .shadow(radius: 10)
-                    .padding(.top, 120)
+                            Image(bucketItem.picture.getImage()) // Gewähltes Bild aus TilePicture
+                                .resizable()
+                                //.scaledToFit()
+                                .frame(width: 350, height: 120)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                .shadow(radius: 5)
+                                .padding(.top, 120)
             }
-        }
+                    }
+                    .padding(.horizontal, 30)
+                    
         .padding(.horizontal, 30)
+        .swipeActions(edge: .trailing) {
+                    Button {
+                        tileViewModel.removeTile(bucketItem)
+                    } label: {
+                        Label("Löschen", systemImage: "trash")
+                    }
+                }
         
         // ✅ Bestätigungs-Alert für das Löschen
         .alert("Bucket löschen?", isPresented: $showDeleteAlert) {
@@ -84,10 +95,14 @@ struct TileView: View {
 
 
 #Preview {
-    TileView(bucketItem: BucketListItem(title: "Abenteuer", country: "Australien", location: "Sydney", companion: .partner))
+    TileView(bucketItem: BucketListItem(title: "Abenteuer", country: "Australien", location: "Sydney", companion: .partner, picture: .sun))
 }
 
 
-
-
+//.resizable()
+//.frame(width: 350, height: 120)
+//.scaledToFit()
+//.clipShape(RoundedRectangle(cornerRadius: 20))
+//.shadow(radius: 10)
+//.padding(.top, 120)
 

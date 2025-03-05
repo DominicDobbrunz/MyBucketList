@@ -17,7 +17,7 @@ struct InfoView: View {
                VStack(alignment: .leading, spacing: 16) {
                     
                     // App Icon oder Bild
-                    Image("Icon")
+                    Image("IconBL")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 100, height: 100)

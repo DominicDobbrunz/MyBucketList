@@ -17,12 +17,13 @@ struct EditView: View {
     @State private var country: String = ""
     @State private var companion: Companion = .alone
     @State private var location: String = ""
+    @State private var selectedPicture: TilePicture = .sun
     
     var onSave: (BucketListItem) -> Void
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 20) {
+            VStack(spacing: 10) {
                 
                 TextField("Titel", text: $title)
                     .padding()
@@ -44,11 +45,38 @@ struct EditView: View {
                 
                 CompanionPicker(selection: $companion)
 
+                VStack {
+                    HStack {
+                        Text("Wähle ein Bild")
+                            .font(.headline)
+                            .foregroundColor(.black)
+                        Spacer()
+                        Picker("Bild auswählen", selection: $selectedPicture) {
+                            ForEach(TilePicture.allCases) { picture in
+                                Text(picture.rawValue).tag(picture)
+                            }
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .padding()
+                    .background(Color.grey1.opacity(0.2))
+                    .cornerRadius(10)
+                    .padding(.horizontal)
+                    
+                    Image(selectedPicture.getImage()) // ✅ Zeigt das gewählte Bild an
+                        .resizable()
+                        .frame(width: 253, height: 100)
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
+                        .padding()
+                }
+                
                 Button(action: {
                     let newItem = BucketListItem(title: title,
                                                  country: country,
                                                  location: location,
-                                                 companion: companion
+                                                 companion: companion,
+                                                 picture: selectedPicture
                     )
                     onSave(newItem)
                     dismiss()
