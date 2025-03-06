@@ -11,10 +11,10 @@ import Firebase
 struct BucketListView: View {
     @Environment(\.dismiss) var dismiss
     var item: BucketListItem
-    @ObservedObject var viewModel: BucketListViewModel // ✅ Hier als @ObservedObject übergeben
+    @ObservedObject var viewModel: BucketListViewModel
     @State private var showAddBucketView = false
     @State private var showCompletionAlert = false
-    
+
     var body: some View {
         ZStack {
             MeshGradientView()
@@ -27,25 +27,25 @@ struct BucketListView: View {
                     .scaledToFit()
                     .clipped()
                     .overlay(
-                        VStack(alignment: .leading) { // ✅ Schrift untereinander setzen
+                        VStack(alignment: .leading) {
                             Spacer()
                             Text(item.title)
                                 .font(.title2)
                                 .bold()
                                 .foregroundColor(.black)
                                 .shadow(radius: 10)
-                                .frame(maxWidth: .infinity, alignment: .leading) // Links ausrichten
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             
                             Text("Mit: \(item.companion.rawValue)")
                                 .font(.headline)
                                 .foregroundColor(.black)
-                                .frame(maxWidth: .infinity, alignment: .leading) // Links ausrichten
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         .padding(),
                         alignment: .bottomLeading
                     )
                 
-                WeatherView(item: item)
+                WeatherView(location: item.location)
                 
                 VStack {
                     Text("Bucket Liste")
@@ -80,12 +80,11 @@ struct BucketListView: View {
                             .foregroundColor(.black)
                     }
                 }
-                
             }
             
             .sheet(isPresented: $showAddBucketView) {
                 AddBucketView { newBucket in
-                    viewModel.addBucket(newBucket) // ✅ Speichern über ViewModel
+                    viewModel.addBucket(newBucket)
                 }
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
@@ -114,7 +113,7 @@ struct BucketListView: View {
                 Text(bucket.title)
                     .font(.headline)
                     .foregroundColor(.black)
-                    .frame(maxWidth: .infinity, alignment: .leading) // Links ausrichten
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 if bucket.completed {
                     Image(systemName: "checkmark.circle.fill")
@@ -138,6 +137,6 @@ struct BucketListView: View {
 }
 
 
-#Preview {
-    BucketListView( item: BucketListItem(title: "Strand", country: "Griechenland", location: "Athen", companion: .alone, picture: .sun), viewModel: BucketListViewModel())
-}
+//#Preview {
+//    BucketListView( item: BucketListItem(title: "Strand", country: "Griechenland", location: "Athen", companion: .alone, picture: .sun), viewModel: BucketListViewModel())
+//}

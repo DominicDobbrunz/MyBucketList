@@ -37,7 +37,7 @@ final class SettingViewModel: ObservableObject {
     @Published var isLocationEnabled: Bool = false
     @Published var selectedLanguage: String = "Deutsch"
     
-    @Published var selectedOccupation: Occupation?
+    @Published var selectedOccupation: Occupation? = nil
 
     let languages = ["Deutsch", "Englisch", "Französisch", "Spanisch", "Italienisch"]
     

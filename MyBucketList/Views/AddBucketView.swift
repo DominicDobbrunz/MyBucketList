@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddBucketView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var userViewModel: UserViewModel
     @State private var title: String = ""
     var onAdd: (BucketListItem) -> Void
     
@@ -21,9 +22,22 @@ struct AddBucketView: View {
                 .padding(.horizontal)
             
             Button(action: {
-                let newBucket = BucketListItem(title: title, country: "Unbekannt", location: "Unbekannt", companion: .alone, picture: .sun, completed: false)
-                onAdd(newBucket)
-                dismiss()
+                            // ✅ Überprüfen Sie, ob der Benutzer angemeldet ist
+                            if let userID = userViewModel.userID {
+                                let newBucket = BucketListItem(
+                                    userId: userID, // ✅ userID übergeben
+                                    title: title,
+                                    country: "Unbekannt",
+                                    location: "Unbekannt",
+                                    companion: .alone,
+                                    picture: .sun,
+                                    completed: false
+                                )
+                                onAdd(newBucket)
+                                dismiss()
+                            } else {
+                                print("Benutzer ist nicht angemeldet.")
+                            }
             }) {
                 Text("Hinzufügen")
                     .frame(maxWidth: .infinity)

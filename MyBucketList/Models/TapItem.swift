@@ -5,7 +5,7 @@
 //  Created by Dominic Dobbrunz on 12.02.25.
 //
 import Foundation
-import SwiftUI
+
 
 struct TapItem: Identifiable {
     var id = UUID()

@@ -5,7 +5,7 @@
 //  Created by Dominic Dobbrunz on 05.03.25.
 //
 import Foundation
-import SwiftUI
+
 
 enum TilePicture: String, Identifiable, CaseIterable, Codable {
     case sun = "Sonne"

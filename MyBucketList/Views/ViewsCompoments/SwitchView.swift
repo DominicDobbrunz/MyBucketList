@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SwitchView: View {
-    @EnvironmentObject private var userViewModel: UserViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     
     var body: some View {
         if userViewModel.isUserSignedIn {

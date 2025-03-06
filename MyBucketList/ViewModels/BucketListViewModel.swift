@@ -5,45 +5,64 @@
 //  Created by Dominic Dobbrunz on 26.02.25.
 //
 
-
-import SwiftUI
 import Firebase
+import FirebaseAuth
+import FirebaseFirestore
+import Combine
 
 class BucketListViewModel: ObservableObject {
-    @Published var buckets: [BucketListItem] = [] // Direkt mit leerem Array initialisieren
-    private let userDefaultsKey = "savedBuckets"
-    var isFirstOpen = true
-
-    init() {
-        self.buckets = loadFromUserDefaults()
-        //self.buckets = loadFromUserDefaults()
+    @Published var buckets: [BucketListItem] = []
+    private let db = Firestore.firestore()
+    private var userId: String? {
+        Auth.auth().currentUser?.uid
     }
 
-    
-    
+    init() {
+        fetchBuckets()
+    }
+
+    func fetchBuckets() {
+        guard let userId = userId else {
+            print("User is not logged in.")
+            return
+        }
+        
+        db.collection("buckets")
+            .whereField("userId", isEqualTo: userId)
+            .addSnapshotListener { snapshot, error in
+                if let error = error {
+                    print("Error fetching buckets: \(error)")
+                    return
+                }
+                self.buckets = snapshot?.documents.compactMap { document in
+                    try? document.data(as: BucketListItem.self)
+                } ?? []
+            }
+    }
+
     func addBucket(_ bucket: BucketListItem) {
-        buckets.append(bucket)
-        saveToUserDefaults()
+        guard let userId = userId else {
+            print("User is not logged in.")
+            return
+        }
+        
+        var newBucket = bucket
+        newBucket.userId = userId
+        do {
+            try db.collection("buckets").document(newBucket.id.uuidString).setData(from: newBucket)
+        } catch {
+            print("Error adding bucket: \(error)")
+        }
     }
 
     func markAsCompleted(index: Int) {
-        buckets[index].completed = true
-        saveToUserDefaults()
-    }
-
-    func saveToUserDefaults() {
-        if let encoded = try? JSONEncoder().encode(buckets) {
-            UserDefaults.standard.set(encoded, forKey: userDefaultsKey)
+        guard let userId = userId else {
+            print("User is not logged in.")
+            return
         }
-    }
-
-    func loadFromUserDefaults() -> [BucketListItem] {
-        if let savedData = UserDefaults.standard.data(forKey: userDefaultsKey),
-           let decoded = try? JSONDecoder().decode([BucketListItem].self, from: savedData) {
-            return decoded
-        }
-        return [] // Falls kein gespeicherter Wert existiert, geben wir ein leeres Array zurück
+        
+        let bucket = buckets[index]
+        db.collection("buckets").document(bucket.id.uuidString).updateData(["completed": true])
     }
 }
-
 

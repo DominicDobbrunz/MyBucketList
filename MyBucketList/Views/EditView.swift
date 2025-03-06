@@ -13,6 +13,7 @@ import Firebase
 
 struct EditView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var userViewModel: UserViewModel
     @State private var title: String = ""
     @State private var country: String = ""
     @State private var companion: Companion = .alone
@@ -72,14 +73,22 @@ struct EditView: View {
                 }
                 
                 Button(action: {
-                    let newItem = BucketListItem(title: title,
-                                                 country: country,
-                                                 location: location,
-                                                 companion: companion,
-                                                 picture: selectedPicture
-                    )
-                    onSave(newItem)
-                    dismiss()
+                                // ✅ Überprüfen Sie, ob der Benutzer angemeldet ist
+                                if let userID = userViewModel.userID {
+                                    let newBucket = BucketListItem(
+                                        userId: userID, // ✅ userID übergeben
+                                        title: title,
+                                        country: country,
+                                        location: location,
+                                        companion: .alone,
+                                        picture: .sun,
+                                        completed: false
+                                    )
+                                    onSave(newBucket)
+                                    dismiss()
+                                } else {
+                                    print("Benutzer ist nicht angemeldet.")
+                                }
                 }) {
                     Text("Hinzufügen")
                         .frame(maxWidth: .infinity)

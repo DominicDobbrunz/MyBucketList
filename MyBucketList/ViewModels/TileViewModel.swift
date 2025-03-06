@@ -4,39 +4,49 @@
 //
 //  Created by Dominic Dobbrunz on 03.03.25.
 //
-import SwiftUI
 import Firebase
+import FirebaseAuth
+import FirebaseFirestore
+import Combine
 
 class TileViewModel: ObservableObject {
-    @Published var tiles: [BucketListItem] = [] {
-        didSet {
-            saveToUserDefaults()
-        }
+    @Published var tiles: [BucketListItem] = []
+    private let db = Firestore.firestore()
+    private var userId: String? {
+        Auth.auth().currentUser?.uid
     }
-    
-    private let saveKey = "savedTiles"
-    
+
     init() {
-        loadFromUserDefaults()
+        fetchTiles()
     }
-    
-    // ✅ Speichert die Tiles in UserDefaults
-    private func saveToUserDefaults() {
-        if let encoded = try? JSONEncoder().encode(tiles) {
-            UserDefaults.standard.set(encoded, forKey: saveKey)
+
+    func fetchTiles() {
+        guard let userId = userId else { return }
+        db.collection("tiles")
+            .whereField("userId", isEqualTo: userId)
+            .addSnapshotListener { snapshot, error in
+                if let error = error {
+                    print("Error fetching tiles: \(error)")
+                    return
+                }
+                self.tiles = snapshot?.documents.compactMap { document in
+                    try? document.data(as: BucketListItem.self)
+                } ?? []
+            }
+    }
+
+    func addTile(_ tile: BucketListItem) {
+        guard let userId = userId else { return }
+        var newTile = tile
+        newTile.userId = userId
+        do {
+            try db.collection("tiles").document(newTile.id.uuidString).setData(from: newTile)
+        } catch {
+            print("Error adding tile: \(error)")
         }
     }
-    
-    // ✅ Lädt die gespeicherten Tiles
-    private func loadFromUserDefaults() {
-        if let savedData = UserDefaults.standard.data(forKey: saveKey),
-           let decoded = try? JSONDecoder().decode([BucketListItem].self, from: savedData) {
-            self.tiles = decoded
-        }
+
+    func removeTile(_ tile: BucketListItem) {
+        db.collection("tiles").document(tile.id.uuidString).delete()
     }
-    
-    // ✅ Löscht ein Bucket-Item aus der Liste und speichert es
-    func removeTile(_ item: BucketListItem) {
-            tiles.removeAll { $0.id == item.id } // Sicherstellen, dass das richtige Element entfernt wird
-        }
 }

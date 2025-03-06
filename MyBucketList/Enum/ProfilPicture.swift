@@ -5,7 +5,7 @@
 //  Created by Dominic Dobbrunz on 04.03.25.
 //
 import Foundation
-import SwiftUI
+
 
 
 enum Occupation: String, Identifiable, CaseIterable {

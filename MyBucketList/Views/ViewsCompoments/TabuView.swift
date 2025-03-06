@@ -47,6 +47,5 @@ struct TabuView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
                 .shadow(color: .black.opacity(0.2), radius: 10, x: 10, y: 10)
             }
-        
     }
 }

@@ -13,7 +13,7 @@ struct WeatherView: View {
     
     @StateObject private var weatherVM = WeatherVM()
     //@EnvironmentObject var settingViewModel: SettingViewModel
-    var item: BucketListItem
+    var location: String
     
     var body: some View {
         if let weather = weatherVM.weather {
@@ -48,14 +48,14 @@ struct WeatherView: View {
             ProgressView()
                 .onAppear {
                     Task {
-                        await weatherVM.loadWeather(city: item.location) // Wetter für den Ort holen
+                        await weatherVM.loadWeather(city: location) // Wetter für den Ort holen
                     }
                 }
         }
     }
 }
 
-#Preview {
-    WeatherView(item: BucketListItem(title: "Wandern", country: "Deutschland", location: "Harz", companion: .partner, picture: .sun))
-        .environmentObject(WeatherVM())
-}
+//#Preview {
+//    WeatherView(item: BucketListItem(title: "Wandern", country: "Deutschland", location: "Harz", companion: .partner, picture: .sun))
+//        .environmentObject(WeatherVM())
+//}
