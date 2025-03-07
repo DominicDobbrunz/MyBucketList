@@ -8,8 +8,9 @@
 
 import Foundation
 
-struct LikeItem: Identifiable, Codable {
+struct LikeItem: Identifiable, Codable, Hashable {
     var id = UUID()
+    var userId: String? // ✅ Benutzer-ID hinzufügen
     var title: String
     var imageName: String
 }

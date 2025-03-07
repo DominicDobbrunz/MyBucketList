@@ -10,6 +10,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseCore
+import TipKit
 
 @main
 struct MyApp: App {
@@ -25,6 +26,9 @@ struct MyApp: App {
     var body: some Scene {
         WindowGroup {
             LoadScreenView()
+                .task {
+                    try? Tips.configure()
+                }
                 .environmentObject(userViewModel)
                 .environmentObject(settingViewModel)
                 //.environmentObject(mapViewModel)

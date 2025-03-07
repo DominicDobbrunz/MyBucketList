@@ -7,10 +7,13 @@
 
 import SwiftUI
 import Firebase
+import TipKit
 
 struct MainView: View {
     @StateObject private var tileViewModel = TileViewModel()
     @State private var showEditView = false
+    
+    private let editTip: EditTip = .init()
 
     var body: some View {
         NavigationStack {
@@ -20,15 +23,15 @@ struct MainView: View {
                 VStack {
                     if tileViewModel.tiles.isEmpty {
                         VStack(spacing: 10) {
-                            Image(systemName: "house")
+                            Image("Strand")
                                 .resizable()
-                                .scaledToFit()
-                                .frame(width: 100, height: 100)
-                                .foregroundColor(.gray.opacity(0.5))
+                                .frame(width: 373, height: 200)
+                                .cornerRadius(8)
                             
-                            Text("Noch kein Bucket")
+                            Text("Noch kein Bucket dann klicke das + ")
                                 .font(.headline)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.black)
+                            AnimationsView()
                         }
                         .padding()
                     } else {
@@ -50,8 +53,14 @@ struct MainView: View {
                             Image(systemName: "plus")
                                 .font(.title2)
                                 .foregroundColor(.black)
+                                .popoverTip(editTip, arrowEdge: .bottom)
+                                .onAppear {
+                                    // nach der ersten Anzeige deaktivieren
+                                    editTip.invalidate(reason: .actionPerformed)
+                                }
                         }
                         .presentationBackground(.ultraThinMaterial)
+                        
                     }
                 }
                 .sheet(isPresented: $showEditView) {
@@ -63,4 +72,8 @@ struct MainView: View {
             }
         }
     }
+}
+
+#Preview {
+    MainView()
 }

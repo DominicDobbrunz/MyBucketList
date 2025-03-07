@@ -80,8 +80,8 @@ struct EditView: View {
                                         title: title,
                                         country: country,
                                         location: location,
-                                        companion: .alone,
-                                        picture: .sun,
+                                        companion: companion,
+                                        picture: selectedPicture,
                                         completed: false
                                     )
                                     onSave(newBucket)

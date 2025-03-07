@@ -1,37 +1,57 @@
 //
-//  LikeViewModel.swift
+//  LikeViewModel 2.swift
 //  MyBucketList
 //
-//  Created by Dominic Dobbrunz on 03.03.25.
+//  Created by Dominic Dobbrunz on 07.03.25.
 //
-import SwiftUI
+
+
 import Firebase
+import FirebaseAuth
+import FirebaseFirestore
+import Combine
 
 class LikeViewModel: ObservableObject {
-    @Published var likes: [LikeItem] = [] {
-        didSet {
-            saveToUserDefaults()
-        }
+    @Published var likes: [LikeItem] = []
+    private let db = Firestore.firestore()
+    private var userId: String? {
+        Auth.auth().currentUser?.uid
     }
-    
-    private let saveKey = "savedLikes"
 
     init() {
-        loadFromUserDefaults()
+        fetchLikes()
     }
-    
-    // ✅ Speichern in UserDefaults
-    private func saveToUserDefaults() {
-        if let encoded = try? JSONEncoder().encode(likes) {
-            UserDefaults.standard.set(encoded, forKey: saveKey)
+
+    func fetchLikes() {
+        guard let userId = userId else { return }
+        
+        db.collection("likes")
+            .whereField("userId", isEqualTo: userId)
+            .addSnapshotListener { snapshot, error in
+                if let error = error {
+                    print("Error fetching likes: \(error)")
+                    return
+                }
+                self.likes = snapshot?.documents.compactMap { document in
+                    try? document.data(as: LikeItem.self)
+                } ?? []
+            }
+    }
+
+    func addLike(_ like: LikeItem) {
+        guard let userId = userId else { return }
+        
+        var newLike = like
+        newLike.userId = userId
+        
+        do {
+            try db.collection("likes").document(newLike.id.uuidString).setData(from: newLike)
+        } catch {
+            print("Error adding like: \(error)")
         }
     }
 
-    // ✅ Laden aus UserDefaults
-    private func loadFromUserDefaults() {
-        if let savedData = UserDefaults.standard.data(forKey: saveKey),
-           let decoded = try? JSONDecoder().decode([LikeItem].self, from: savedData) {
-            self.likes = decoded
-        }
+    func removeLike(_ like: LikeItem) {
+        db.collection("likes").document(like.id.uuidString).delete()
     }
 }

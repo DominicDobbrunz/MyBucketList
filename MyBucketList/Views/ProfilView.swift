@@ -13,6 +13,12 @@ struct ProfilView: View {
     @StateObject private var settingVM = SettingViewModel()
     @Environment(\.presentationMode) var presentationMode
     
+    private var minimumDate: Date {
+            let calendar = Calendar.current
+            let currentDate = Date()
+            return calendar.date(byAdding: .year, value: -16, to: currentDate) ?? currentDate
+        }
+    
     var body: some View {
         NavigationStack {
             ZStack{
@@ -67,7 +73,7 @@ struct ProfilView: View {
                                 .foregroundColor(.black)
                                 .padding(.horizontal,18)
                             Spacer()
-                            DatePicker("Geburtstag", selection: $settingVM.birthdate, displayedComponents: .date)
+                            DatePicker("Geburtstag", selection: $settingVM.birthdate, in: ...minimumDate, displayedComponents: .date)
                                 .labelsHidden()
                                 .datePickerStyle(CompactDatePickerStyle())
                                 .padding(.horizontal)
@@ -104,7 +110,7 @@ struct ProfilView: View {
                                 
                                 VStack(alignment: .trailing, spacing: 10) {
                                     Text(settingVM.gender)
-                                    Text(settingVM.occupation)
+                                    Text(settingVM.selectedOccupation?.rawValue ?? "Sonnenfreund")
                                     Text("\(settingVM.birthdate, formatter: dateFormatter)")
                                 }
                                 .foregroundColor(.black)

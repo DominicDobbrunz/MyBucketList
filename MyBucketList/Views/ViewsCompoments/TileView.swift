@@ -11,7 +11,7 @@ import Firebase
 struct TileView: View {
     var bucketItem: BucketListItem
     @EnvironmentObject var tileViewModel: TileViewModel // Zugriff auf das ViewModel
-    @EnvironmentObject var userViewModel: UserViewModel
+//    @EnvironmentObject var userViewModel: UserViewModel
     @State private var showDeleteAlert = false // Zeigt den Bestätigungs-Alert an
 
     var body: some View {
@@ -53,7 +53,7 @@ struct TileView: View {
                         Button {
                             showDeleteAlert = true
                         } label: {
-                            Image(systemName: "ellipsis.circle")
+                            Image(systemName: "trash")
                                 .font(.title2)
                                 .foregroundColor(.white.opacity(0.8))
                                 .padding()

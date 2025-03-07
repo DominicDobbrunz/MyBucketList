@@ -4,14 +4,14 @@
 //
 //  Created by Dominic Dobbrunz on 25.02.25.
 //
-
-
 import SwiftUI
+
 
 struct AddLikeView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var title: String = ""
     @State private var imageName: String = "placeholder" // Standardbild
+    
     
     var onAdd: (LikeItem) -> Void
     
@@ -50,7 +50,6 @@ struct AddLikeView: View {
                 }
                 .padding(.horizontal)
             }
-            
         }
         .background(MeshGradientView(opacity: 0.1).ignoresSafeArea())
     }

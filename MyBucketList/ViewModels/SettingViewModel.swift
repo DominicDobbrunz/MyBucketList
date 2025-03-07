@@ -13,17 +13,12 @@ import Observation
 
 
 final class SettingViewModel: ObservableObject {
-    @AppStorage("lastLocationTrip")
-    @ObservationIgnored
-    var lastLocationTrip: String = "Berlin"
-    @AppStorage("lastLocationWeather")
-    @ObservationIgnored
-    var lastLocationWeather: String = "Grand Canyon"
+    @AppStorage("lastLocationTrip") var lastLocationTrip: String = "Berlin"
+    @AppStorage("lastLocationWeather") var lastLocationWeather: String = "Grand Canyon"
     var lastTripLocation: String {
         get { lastLocationTrip }
         set { lastLocationTrip = newValue }
     }
-    
     var lastWheaterLocation: String {
         get { lastLocationWeather }
         set { lastLocationWeather = newValue }
@@ -36,12 +31,9 @@ final class SettingViewModel: ObservableObject {
     @Published var isEditing: Bool = false
     @Published var isLocationEnabled: Bool = false
     @Published var selectedLanguage: String = "Deutsch"
-    
     @Published var selectedOccupation: Occupation? = nil
 
     let languages = ["Deutsch", "Englisch", "Französisch", "Spanisch", "Italienisch"]
-    
-    
     let genderOptions = ["Männlich", "Weiblich", "Divers"]
     let occupationOptions = ["Sonnenfreund", "Abenteuerfreund", "Stadtfreund", "Landschaftsfreund", "Schneefreund"]
     
@@ -61,7 +53,7 @@ final class SettingViewModel: ObservableObject {
                 self.name = data["name"] as? String ?? ""
                 self.birthdate = (data["birthdate"] as? Timestamp)?.dateValue() ?? Date()
                 self.gender = data["gender"] as? String ?? "Männlich"
-                self.selectedOccupation = data["occupation"] as? Occupation ?? .sun
+                self.selectedOccupation = Occupation(rawValue: data["occupation"] as? String ?? "Sonnenfreund")
                 self.isDarkMode = data["isDarkMode"] as? Bool ?? false
                 
             }
