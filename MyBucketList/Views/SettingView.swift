@@ -51,7 +51,7 @@ struct SettingView: View {
                                                   }
                                                    
                                                    Slider(value: $brightness, in: 0...1, step: 0.01) { _ in
-                                                       UIScreen.main.brightness = CGFloat(brightness) // Bildschirmhelligkeit setzen
+                                                       UIScreen.main.brightness = CGFloat(brightness) 
                                                    }
                                                    .accentColor(.yellow)
                                                }

@@ -55,7 +55,6 @@ struct MainView: View {
                                 .foregroundColor(.black)
                                 .popoverTip(editTip, arrowEdge: .bottom)
                                 .onAppear {
-                                    // nach der ersten Anzeige deaktivieren
                                     editTip.invalidate(reason: .actionPerformed)
                                 }
                         }

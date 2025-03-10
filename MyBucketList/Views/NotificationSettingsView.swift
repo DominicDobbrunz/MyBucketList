@@ -46,14 +46,10 @@ struct NotificationSettingsView: View {
                         }
                         Toggle("Benachrichtigungen bei Reaktionen", isOn: $showReactionNotifications)
                     }
-                    
-                    // Statusbenachrichtigungen
                     Section(header: Text("Statusbenachrichtigungen").foregroundColor(.gray)) {
                         Toggle("Benachrichtigungen anzeigen", isOn: $showStatusNotifications)
                         Toggle("Benachrichtigungen bei Reaktionen", isOn: $showReactionNotifications)
                     }
-                    
-                    // Erinnerungen
                     Section {
                         Toggle("Erinnerungen", isOn: $showReminders)
                             .padding(.vertical, 5)
@@ -61,8 +57,6 @@ struct NotificationSettingsView: View {
                             .font(.footnote)
                             .foregroundColor(.gray)
                     }
-                    
-                    // Benachrichtigungen zurücksetzen
                     Section {
                         Button(action: {
                             resetAlert = true

@@ -9,7 +9,7 @@
 import MapKit
 
 struct CustomAnnotation: Identifiable {
-    let id = UUID() // Eindeutige ID für jede Annotation
+    let id = UUID() 
     let title: String
     let subtitle: String?
     let coordinate: CLLocationCoordinate2D

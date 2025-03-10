@@ -7,37 +7,84 @@
 import SwiftUI
 
 
+import SwiftUI
+import PhotosUI
+
 struct AddLikeView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var title: String = ""
-    @State private var imageName: String = "placeholder" // Standardbild
-    
-    
+    @State private var selectedImage: UIImage? = nil
+    @State private var imagePickerItem: PhotosPickerItem? = nil
+    @State private var uploadedImageURL: String? = nil
+    @State private var isUploading = false
     var onAdd: (LikeItem) -> Void
     
     var body: some View {
         ZStack {
             VStack(spacing: 20) {
+                // ✅ TextField für den Namen des Ortes
                 TextField("Name des Ortes", text: $title)
                     .padding()
                     .background(Color.white.opacity(0.2))
                     .cornerRadius(10)
                     .padding(.horizontal)
                 
-                Button(action: {
-                    let newLike = LikeItem(title: title, imageName: imageName)
-                    onAdd(newLike)
-                    dismiss()
-                }) {
-                    Text("Hinzufügen")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.grey1)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                // ✅ Bildauswahl mit PhotosPicker
+                PhotosPicker(selection: $imagePickerItem, matching: .images, photoLibrary: .shared()) {
+                    if let selectedImage = selectedImage {
+                        Image(uiImage: selectedImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 150)
+                            .cornerRadius(10)
+                    } else {
+                        Text("Bild auswählen")
+                            .padding()
+                            .background(Color.grey1.opacity(0.3))
+                            .foregroundStyle(.black)
+                            .cornerRadius(10)
+                    }
                 }
-                .padding(.horizontal)
+                .onChange(of: imagePickerItem) { oldItem, newItem in
+                    Task {
+                        if let data = try? await newItem?.loadTransferable(type: Data.self),
+                           let image = UIImage(data: data) {
+                            selectedImage = image
+                        }
+                    }
+                }
                 
+                // ✅ Button zum Hochladen und Hinzufügen
+                if let selectedImage {
+                    Button(action: {
+                        Task {
+                            isUploading = true
+                            uploadedImageURL = try await ImgurService.uploadImage(selectedImage)
+                            isUploading = false
+                            
+                            let newLike = LikeItem(
+                                title: title,
+                                imageName: uploadedImageURL ?? "placeholder" // ✅ Hochgeladene Bild-URL oder Platzhalter
+                            )
+                            onAdd(newLike) // ✅ Like in Firestore speichern
+                            dismiss()
+                        }
+                    }) {
+                        if isUploading {
+                            ProgressView()
+                        } else {
+                            Text("Hinzufügen")
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.grey1)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                    }
+                    .padding(.horizontal)
+                }
+                
+                // ✅ Button zum Abbrechen
                 Button(action: {
                     dismiss()
                 }) {

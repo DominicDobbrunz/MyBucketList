@@ -25,13 +25,13 @@ struct TileView: View {
                         .frame(width: UIScreen.main.bounds.width - 20, height: 250)
                         .blur(radius: 40)
                         .cornerRadius(14)
-                        .opacity(0.7)
+                        .opacity(0.3)
                         .shadow(radius: 12)
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text(bucketItem.country)
                             .font(.footnote)
-                            .foregroundColor(.white.opacity(0.7))
+                            .foregroundColor(.white)
                         Text(bucketItem.location)
                             .font(.title3)
                             .foregroundColor(.white)

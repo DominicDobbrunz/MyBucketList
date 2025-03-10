@@ -18,7 +18,7 @@ struct SupportView: View {
     var body: some View {
         NavigationStack {
             Form {
-                // 📞 Telefonnummer
+               
                 Section(header: Text("Kontakt").font(.headline)) {
                     HStack {
                         Image(systemName: "phone.fill")
@@ -31,7 +31,6 @@ struct SupportView: View {
                     }
                 }
                 
-                // 📧 E-Mail Support
                 Section {
                     HStack {
                         Image(systemName: "envelope.fill")
@@ -44,7 +43,6 @@ struct SupportView: View {
                     }
                 }
                 
-                // 🌐 Hilfe-Seite
                 Section {
                     HStack {
                         Image(systemName: "questionmark.circle.fill")
@@ -57,7 +55,6 @@ struct SupportView: View {
                     }
                 }
                 
-                // 🔄 App-Version
                 Section(header: Text("App-Version").font(.headline)) {
                     Text("Version: 1.0.0")
                         .foregroundColor(.gray)

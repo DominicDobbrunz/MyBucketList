@@ -16,22 +16,22 @@ struct InfoView: View {
             ScrollView {
                VStack(alignment: .leading, spacing: 16) {
                     
-                    // App Icon oder Bild
+                    
                     Image("IconBL")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 100, height: 100)
+                        .frame(width: 150, height: 150)
                         .cornerRadius(5)
                         .padding(.top, 20)
                         .frame(maxWidth: .infinity)
                     
-                    // Titel
+                    
                     Text("🌍 MyBucketList – Die Reise-App")
                         .font(.title2)
                         .bold()
                         .multilineTextAlignment(.center)
                     
-                    // Beschreibung
+                    
                     Text("Mit **MyBucketList** kannst du deine Traumreisen planen, Reiseziele speichern und deine Erlebnisse mit Freunden teilen. Egal ob Städte, Strände oder Berge – hier kannst du all deine Reisewünsche verwalten.")
                         .font(.body)
                         .foregroundColor(.primary)

@@ -12,7 +12,6 @@ import Firebase
 struct WeatherView: View {
     
     @StateObject private var weatherVM = WeatherVM()
-    //@EnvironmentObject var settingViewModel: SettingViewModel
     var location: String
     
     var body: some View {
@@ -40,7 +39,7 @@ struct WeatherView: View {
                                   Text("\(Int(day.day.maxtemp_c))°C / \(Int(day.day.mintemp_c))°C")
                                       .foregroundStyle(.black)
                               }
-                              //.padding()
+                              
                           }
                       }
                       .padding()

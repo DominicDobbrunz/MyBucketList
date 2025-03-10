@@ -18,20 +18,14 @@ struct DatenschutzView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    
-                    // Titel
                     Text("Datenschutzrichtlinien")
                         .font(.title)
                         .bold()
-                    
-                    // Einführung
                     Text("Willkommen zu unserer Datenschutzrichtlinie. Der Schutz Ihrer persönlichen Daten ist uns sehr wichtig. Bitte lesen Sie die folgenden Informationen sorgfältig durch.")
                         .font(.body)
                         .foregroundColor(.black)
                     
                     Divider()
-                    
-                    // Abschnitt 1 - Datensammlung
                     Text("1️⃣ Welche Daten sammeln wir?")
                         .font(.headline)
                     Text("Wir erfassen folgende Daten, wenn Sie unsere App nutzen:")
@@ -40,8 +34,6 @@ struct DatenschutzView: View {
                     BulletPoint(text: "Nutzungsstatistiken zur Verbesserung der App")
                     
                     Divider()
-                    
-                    // Abschnitt 2 - Verwendung der Daten
                     Text("2️⃣ Wie nutzen wir Ihre Daten?")
                         .font(.headline)
                     Text("Wir verwenden Ihre Daten für:")
@@ -50,8 +42,6 @@ struct DatenschutzView: View {
                     BulletPoint(text: "Marketing- und Analysezwecke")
                     
                     Divider()
-                    
-                    // Abschnitt 3 - Ihre Rechte
                     Text("3️⃣ Ihre Rechte")
                         .font(.headline)
                     Text("Sie haben das Recht auf:")
@@ -60,8 +50,6 @@ struct DatenschutzView: View {
                     BulletPoint(text: "Widerruf der Zustimmung zur Datennutzung")
                     
                     Divider()
-                    
-                    // Zustimmung
                     Toggle("Ich akzeptiere die Datenschutzrichtlinien", isOn: $agreedToPolicy)
                         .padding()
                     

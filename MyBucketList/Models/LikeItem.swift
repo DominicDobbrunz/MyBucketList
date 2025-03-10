@@ -10,7 +10,7 @@ import Foundation
 
 struct LikeItem: Identifiable, Codable, Hashable {
     var id = UUID()
-    var userId: String? // ✅ Benutzer-ID hinzufügen
+    var userId: String? 
     var title: String
     var imageName: String
 }

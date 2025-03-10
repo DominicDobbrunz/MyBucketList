@@ -22,10 +22,9 @@ struct AddBucketView: View {
                 .padding(.horizontal)
             
             Button(action: {
-                            // ✅ Überprüfen Sie, ob der Benutzer angemeldet ist
                             if let userID = userViewModel.userID {
                                 let newBucket = BucketListItem(
-                                    userId: userID, // ✅ userID übergeben
+                                    userId: userID,
                                     title: title,
                                     country: "Unbekannt",
                                     location: "Unbekannt",

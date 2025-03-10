@@ -16,11 +16,11 @@ struct RegisterView: View {
     @State private var confirmPassword: String = ""
     @State private var showPassword: Bool = false
     @State private var showConfirmPassword: Bool = false
+    @State private var errorMessage: String = "" 
 
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
-                
                 VStack {
                     Image("RegestrierEN")
                         .resizable()
@@ -28,20 +28,17 @@ struct RegisterView: View {
                         .shadow(radius: 5)
                         .cornerRadius(8)
                         .scaledToFit()
-                        
-                        
                     
                     Text("Registrieren")
                         .bold().font(Font.custom("Baskerville", size: 30))
                 }
                 .padding(.top, 40)
-               
+                
                 TextField("Name", text: $name)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .autocapitalization(.words)
                     .padding(.horizontal)
 
-                
                 TextField("E-Mail", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .keyboardType(.emailAddress)
@@ -57,44 +54,31 @@ struct RegisterView: View {
                     Button(action: {
                         showPassword.toggle()
                     }) {
-                        Rectangle()
-                            .frame(width: 32, height: 32)
-                            .cornerRadius(5)
-                            .foregroundColor(.grey1)
-                            .overlay(
-                                Text(showPassword ? "🔓" : "🔒")
-                                    .font(.system(size: 14))
-                                    //.foregroundColor(.black)
-                            )
+                        Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
+                            .foregroundColor(.black)
                     }
                 }
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
 
                 HStack {
-                                   if showConfirmPassword {
-                                       TextField("Passwort wiederholen", text: $confirmPassword)
-                                   } else {
-                                       SecureField("Passwort wiederholen", text: $confirmPassword)
-                                   }
-                                   Button(action: {
-                                       showConfirmPassword.toggle()
-                                   }) {
-                                       Rectangle()
-                                           .frame(width: 32, height: 32)
-                                           .cornerRadius(5)
-                                           .foregroundColor(.grey1)
-                                           .overlay(
-                                               Text(showConfirmPassword ? "🔓" : "🔒")
-                                                   .font(.system(size: 14))
-                                                   //.foregroundColor(.black)
-                                           )
-                                   }
-                               }
-                               .textFieldStyle(RoundedBorderTextFieldStyle())
-                               .padding(.horizontal)
+                    if showConfirmPassword {
+                        TextField("Passwort wiederholen", text: $confirmPassword)
+                    } else {
+                        SecureField("Passwort wiederholen", text: $confirmPassword)
+                    }
+                    Button(action: {
+                        showConfirmPassword.toggle()
+                    }) {
+                        Image(systemName: showConfirmPassword ? "eye.fill" : "eye.slash.fill")
+                            .foregroundColor(.black)
+                    }
+                }
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal)
 
-                if let errorMessage = userViewModel.errorMessage {
+                
+                if !errorMessage.isEmpty {
                     Text(errorMessage)
                         .foregroundColor(.black)
                         .font(.footnote)
@@ -102,12 +86,14 @@ struct RegisterView: View {
                 }
 
                 Button(action: {
-                    Task {
-                        guard password == confirmPassword else {
-                            userViewModel.errorMessage = "Passwörter stimmen nicht überein."
-                            return
+                    if validatePassword() {
+                        Task {
+                            guard password == confirmPassword else {
+                                errorMessage = "Passwörter stimmen nicht überein."
+                                return
+                            }
+                            await userViewModel.signUp(email: email, password: password, name: name)
                         }
-                        await userViewModel.signUp(email: email, password: password, name: name)
                     }
                 }) {
                     Text("Auf zum Bucket")
@@ -122,19 +108,33 @@ struct RegisterView: View {
                 Spacer()
             }
             .navigationBarBackButtonHidden(true)
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                Button(action: {
-                                    dismiss()
-                                }) {
-                                    Image(systemName: "chevron.left")
-                                        .font(.title2)
-                                        .foregroundColor(.black)
-                                }
-                            }
-                        }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title2)
+                            .foregroundColor(.black)
+                    }
+                }
+            }
             .padding()
             .background(MeshGradientView().ignoresSafeArea())
+        }
+    }
+
+    // Passwortvalidierung
+    private func validatePassword() -> Bool {
+        let passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$"
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+        
+        if passwordTest.evaluate(with: password) {
+            errorMessage = ""
+            return true
+        } else {
+            errorMessage = "Passwort muss mindestens 8 Zeichen, eine Zahl und ein Sonderzeichen enthalten."
+            return false
         }
     }
 }

@@ -6,26 +6,47 @@
 //
 import SwiftUI
 import Firebase
-import TipKit
 
 struct LikeView: View {
     @StateObject private var likeVM = LikeViewModel()
     @State private var showAddLikeView = false
-    private let addLikeTip = AddLikeTip()
+    
     let columns = [GridItem(.flexible()), GridItem(.flexible())]  // 2 Spalten
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 16) {
-                    // Vorhandene Likes anzeigen
                     ForEach(likeVM.likes) { like in
                         VStack {
-                            Image(like.imageName)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 120, height: 150)
-                                .cornerRadius(5)
+                            if like.imageName == "placeholder" {
+                                Image(systemName: "photo") // ✅ Standardbild anzeigen
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 120, height: 150)
+                                    .cornerRadius(5)
+                            } else {
+                                AsyncImage(url: URL(string: like.imageName)) { phase in
+                                    switch phase {
+                                    case .empty:
+                                        ProgressView() // ✅ Ladeindikator anzeigen
+                                    case .success(let image):
+                                        image
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 120, height: 150)
+                                            .cornerRadius(5)
+                                    case .failure:
+                                        Image(systemName: "photo") // ✅ Platzhalter, falls Bild nicht geladen wird
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 120, height: 150)
+                                            .cornerRadius(5)
+                                    @unknown default:
+                                        EmptyView()
+                                    }
+                                }
+                            }
                             
                             Text(like.title)
                                 .font(.headline)
@@ -54,11 +75,6 @@ struct LikeView: View {
                         .frame(width: 160, height: 200)
                         .background(Color.grey1.opacity(0.3))
                         .cornerRadius(12)
-                        .popoverTip(addLikeTip, arrowEdge: .bottom)
-                        .onAppear {
-                            // nach der ersten Anzeige deaktivieren
-                            addLikeTip.invalidate(reason: .actionPerformed)
-                        }
                     }
                 }
                 .padding()
@@ -66,7 +82,7 @@ struct LikeView: View {
             .navigationTitle("Highlights")
             .sheet(isPresented: $showAddLikeView) {
                 AddLikeView { newLike in
-                    likeVM.addLike(newLike) // ✅ Like über das ViewModel hinzufügen
+                    likeVM.addLike(newLike) // ✅ Like in Firestore speichern
                 }
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)

@@ -64,7 +64,7 @@ struct EditView: View {
                     .cornerRadius(10)
                     .padding(.horizontal)
                     
-                    Image(selectedPicture.getImage()) // ✅ Zeigt das gewählte Bild an
+                    Image(selectedPicture.getImage())
                         .resizable()
                         .frame(width: 253, height: 100)
                         .cornerRadius(10)
@@ -73,10 +73,9 @@ struct EditView: View {
                 }
                 
                 Button(action: {
-                                // ✅ Überprüfen Sie, ob der Benutzer angemeldet ist
                                 if let userID = userViewModel.userID {
                                     let newBucket = BucketListItem(
-                                        userId: userID, // ✅ userID übergeben
+                                        userId: userID, 
                                         title: title,
                                         country: country,
                                         location: location,
