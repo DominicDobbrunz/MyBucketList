@@ -78,7 +78,7 @@ struct LoginView: View {
                            .padding()
                            .frame(maxWidth: .infinity)
                            .background(Color.grey1)
-                           .foregroundColor(.white)
+                           .foregroundColor(.black)
                            .cornerRadius(8)
                    }
                    .padding(.horizontal)
@@ -88,15 +88,16 @@ struct LoginView: View {
                     print("Google Login gedrückt")
                 }) {
                     HStack {
-                        Image(systemName: "globe")
-                        
+                        Image("Google")
+                            .resizable()
+                            .frame(width: 20, height: 20)
                         // Google-Icon (ersetzbar)
                         Text("Google")
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(Color.grey1)
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .cornerRadius(8)
                     
                 }
@@ -108,12 +109,13 @@ struct LoginView: View {
                 }) {
                     HStack {
                         Image(systemName: "applelogo")
+                            .foregroundStyle(.black)
                         Text("Apple")
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(Color.grey1)
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .cornerRadius(8)
                 }
                 .padding(.horizontal)

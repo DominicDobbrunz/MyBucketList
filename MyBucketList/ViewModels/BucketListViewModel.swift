@@ -21,6 +21,7 @@ class BucketListViewModel: ObservableObject {
         fetchBuckets()
     }
 
+    // ✅ Buckets aus Firestore abrufen
     func fetchBuckets() {
         guard let userId = userId else {
             print("User is not logged in.")
@@ -40,6 +41,7 @@ class BucketListViewModel: ObservableObject {
             }
     }
 
+    // ✅ Bucket in Firestore speichern
     func addBucket(_ bucket: BucketListItem) {
         guard let userId = userId else {
             print("User is not logged in.")
@@ -48,6 +50,7 @@ class BucketListViewModel: ObservableObject {
         
         var newBucket = bucket
         newBucket.userId = userId
+        
         do {
             try db.collection("buckets").document(newBucket.id.uuidString).setData(from: newBucket)
         } catch {
@@ -55,6 +58,7 @@ class BucketListViewModel: ObservableObject {
         }
     }
 
+    // ✅ Bucket als abgeschlossen markieren
     func markAsCompleted(index: Int) {
         guard let userId = userId else {
             print("User is not logged in.")

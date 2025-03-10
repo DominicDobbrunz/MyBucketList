@@ -3,11 +3,11 @@
 //  MyBucketList
 //
 //  Created by Dominic Dobbrunz on 10.03.25.
-//
+// "8b076d06b1a0487"
 import UIKit
 
 struct ImgurService {
-    private static let clientID = "8b076d06b1a0487"
+    private static let clientID = "36f2a13b04bbcf8" // ✅ Ihr Imgur Client-ID
     
     static func uploadImage(_ image: UIImage) async throws -> String {
         guard let imageData = image.jpegData(compressionQuality: 0.8) else {

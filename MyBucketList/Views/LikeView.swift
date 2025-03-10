@@ -33,14 +33,14 @@ struct LikeView: View {
                                     case .success(let image):
                                         image
                                             .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 120, height: 150)
+                                            //.scaledToFit()
+                                            .frame(width: 130, height: 150)
                                             .cornerRadius(5)
                                     case .failure:
                                         Image(systemName: "photo") // ✅ Platzhalter, falls Bild nicht geladen wird
                                             .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 120, height: 150)
+                                            //.scaledToFit()
+                                            .frame(width: 130, height: 150)
                                             .cornerRadius(5)
                                     @unknown default:
                                         EmptyView()

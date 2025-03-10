@@ -59,15 +59,21 @@ struct AddLikeView: View {
                     Button(action: {
                         Task {
                             isUploading = true
-                            uploadedImageURL = try await ImgurService.uploadImage(selectedImage)
+                            do {
+                                // ✅ Bild hochladen
+                                uploadedImageURL = try await ImgurService.uploadImage(selectedImage)
+                                
+                                // ✅ Like-Item erstellen und speichern
+                                let newLike = LikeItem(
+                                    title: title,
+                                    imageName: uploadedImageURL ?? "placeholder" // ✅ Hochgeladene Bild-URL oder Platzhalter
+                                )
+                                onAdd(newLike) // ✅ Like in Firestore speichern
+                                dismiss()
+                            } catch {
+                                print("Fehler beim Hochladen des Bildes: \(error)")
+                            }
                             isUploading = false
-                            
-                            let newLike = LikeItem(
-                                title: title,
-                                imageName: uploadedImageURL ?? "placeholder" // ✅ Hochgeladene Bild-URL oder Platzhalter
-                            )
-                            onAdd(newLike) // ✅ Like in Firestore speichern
-                            dismiss()
                         }
                     }) {
                         if isUploading {
