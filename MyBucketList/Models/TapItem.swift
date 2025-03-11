@@ -15,7 +15,7 @@ struct TapItem: Identifiable {
 var tapItems = [
     TapItem(icon: "bag", tap: .bucket),
     TapItem(icon: "heart.fill", tap: .erinnerrung),
-    TapItem(icon: "map", tap: .karte),
+    TapItem(icon: "globe", tap: .karte),
     TapItem(icon: "person.circle", tap: .profil)
 ]
 

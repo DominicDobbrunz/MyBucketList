@@ -69,6 +69,7 @@ struct MainView: View {
                     .presentationBackground(.ultraThinMaterial)
                 }
             }
+            .navigationTitle("Bucket Listen")
         }
     }
 }

@@ -12,6 +12,7 @@ import Observation
 struct MapView: View {
     
     @State private var vm = MapViewModel()
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationStack {
@@ -46,19 +47,10 @@ struct MapView: View {
                             }
                     }
                 }
-                
                 if let route = vm.route {
                     MapPolyline(route.polyline)
                         .stroke(.mint, lineWidth: 8)
                 }
-                
-//                Annotation("Allianz Arena", coordinate: .allianzArena) {
-//                    Image("bayern")
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(width: 30, height: 30)
-//                        .background(.gray, in: .rect(cornerRadius: 10))
-//                }
             }
             .mapStyle(.standard)
             .mapControls {
@@ -76,6 +68,18 @@ struct MapView: View {
                 vm.locationManager.requestWhenInUseAuthorization()
             }
             .lookAroundViewer(isPresented: $vm.isShowingLookAroundScene, initialScene: vm.lookAroundScene)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title2)
+                            .foregroundColor(.black)
+                    }
+                    .navigationBarBackButtonHidden(true)
+                }
+            }
         }
     }
 }

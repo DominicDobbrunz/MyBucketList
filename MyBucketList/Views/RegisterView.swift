@@ -119,6 +119,7 @@ struct RegisterView: View {
                     }
                 }
             }
+            .navigationBarBackButtonHidden(true)
             .padding()
             .background(MeshGradientView().ignoresSafeArea())
         }

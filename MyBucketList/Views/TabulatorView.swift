@@ -19,7 +19,7 @@ struct TabulatorView: View {
                     case .erinnerrung:
                         LikeView()
                     case .karte:
-                        MapView()
+                    ContinentView()
                     case .profil:
                         ProfilView()
                 }
