@@ -16,10 +16,8 @@ struct TileView: View {
 
     var body: some View {
         VStack {
-            // 🔹 Prüfen, ob das Element noch existiert
-//            if tileViewModel.tiles.contains(where: { $0.id == bucketItem.id }) {
                 ZStack(alignment: .topLeading) {
-                    Image("HintergrundG")
+                    Image("Hintergrund3")
                         .resizable()
                         .scaledToFill()
                         .frame(width: UIScreen.main.bounds.width - 20, height: 250)
@@ -31,19 +29,19 @@ struct TileView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(bucketItem.country)
                             .font(.footnote)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                         Text(bucketItem.location)
                             .font(.title3)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
 
                         Text(bucketItem.title)
                             .font(.title)
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
 
                         Label(bucketItem.companion.rawValue, systemImage: "person.2.fill")
                             .font(.footnote)
-                            .foregroundColor(.white.opacity(0.8))
+                            .foregroundColor(.black.opacity(0.8))
                     }
                     .padding(16)
 
@@ -55,7 +53,7 @@ struct TileView: View {
                         } label: {
                             Image(systemName: "trash")
                                 .font(.title2)
-                                .foregroundColor(.white.opacity(0.8))
+                                .foregroundColor(.black.opacity(0.8))
                                 .padding()
                         }
                         .contextMenu {
@@ -75,7 +73,7 @@ struct TileView: View {
                         .shadow(radius: 5)
                         .padding(.top, 120)
                 }
-            //}
+            
         }
         .padding(.horizontal, 30)
 
@@ -100,11 +98,4 @@ struct TileView: View {
 //}
 
 
-
-//        .swipeActions(edge: .trailing) {
-//                    Button {
-//                        tileViewModel.removeTile(bucketItem)
-//                    } label: {
-//                        Label("Löschen", systemImage: "trash")
-//                    }
-//                }
+              

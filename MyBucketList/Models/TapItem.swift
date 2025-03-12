@@ -6,7 +6,6 @@
 //
 import Foundation
 
-
 struct TapItem: Identifiable {
     var id = UUID()
     var icon: String

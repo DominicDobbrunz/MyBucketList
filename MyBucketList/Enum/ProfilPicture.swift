@@ -6,8 +6,6 @@
 //
 import Foundation
 
-
-
 enum Occupation: String, Identifiable, CaseIterable {
     case sun = "Sonnenfreund"
     case adventure = "Abenteuerfreund"

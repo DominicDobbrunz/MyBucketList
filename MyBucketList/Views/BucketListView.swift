@@ -83,13 +83,13 @@ struct BucketListView: View {
             }
             
             .sheet(isPresented: $showAddBucketView) {
-                AddBucketView { newBucket in
-                    viewModel.addBucket(newBucket)
-                }
-                .presentationDetents([.medium, .large])
-                .presentationDragIndicator(.visible)
-                .presentationBackground(.ultraThinMaterial)
-            }
+                            AddBucketView(bucketListId: item.id.uuidString) { newBucket in
+                                viewModel.addBucket(newBucket)
+                            }
+                            .presentationDetents([.medium, .large])
+                            .presentationDragIndicator(.visible)
+                            .presentationBackground(.ultraThinMaterial)
+                        }
             
             .alert("Glückwunsch!", isPresented: $showCompletionAlert) {
                 Button("OK") {}

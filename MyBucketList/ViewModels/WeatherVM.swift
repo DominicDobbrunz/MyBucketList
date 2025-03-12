@@ -4,8 +4,6 @@
 //
 //  Created by Dominic Dobbrunz on 25.02.25.
 //
-
-
 import SwiftUI
 import Observation
 

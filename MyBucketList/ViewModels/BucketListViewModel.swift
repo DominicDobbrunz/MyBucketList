@@ -16,10 +16,11 @@ class BucketListViewModel: ObservableObject {
     private var userId: String? {
         Auth.auth().currentUser?.uid
     }
-
-    init() {
-        fetchBuckets()
-    }
+    private var bucketListId: String
+    init(bucketListId: String) {
+            self.bucketListId = bucketListId
+            fetchBuckets()
+        }
 
     // ✅ Buckets aus Firestore abrufen
     func fetchBuckets() {
@@ -30,14 +31,15 @@ class BucketListViewModel: ObservableObject {
         
         db.collection("buckets")
             .whereField("userId", isEqualTo: userId)
+            .whereField("bucketListId", isEqualTo: bucketListId)
             .addSnapshotListener { snapshot, error in
                 if let error = error {
                     print("Error fetching buckets: \(error)")
                     return
                 }
                 self.buckets = snapshot?.documents.compactMap { document in
-                    try? document.data(as: BucketListItem.self)
-                } ?? []
+                                    try? document.data(as: BucketListItem.self)
+                                } ?? []
             }
     }
 

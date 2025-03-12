@@ -11,6 +11,7 @@ struct AddBucketView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var userViewModel: UserViewModel
     @State private var title: String = ""
+    var bucketListId: String
     var onAdd: (BucketListItem) -> Void
     
     var body: some View {
@@ -25,6 +26,7 @@ struct AddBucketView: View {
                             if let userID = userViewModel.userID {
                                 let newBucket = BucketListItem(
                                     userId: userID,
+                                    bucketListId: bucketListId,
                                     title: title,
                                     country: "Unbekannt",
                                     location: "Unbekannt",
@@ -42,7 +44,7 @@ struct AddBucketView: View {
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color.grey1)
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .cornerRadius(10)
             }
             .padding(.horizontal)
@@ -54,7 +56,7 @@ struct AddBucketView: View {
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color.grey1)
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .cornerRadius(10)
             }
             .padding(.horizontal)

@@ -8,10 +8,10 @@
 import Foundation
 
 
-
 struct BucketListItem: Identifiable, Codable, Hashable {
     var id = UUID()
     var userId: String
+    var bucketListId: String
     var title: String
     var country: String
     var location: String

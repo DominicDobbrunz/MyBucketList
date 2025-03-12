@@ -19,6 +19,7 @@ struct EditView: View {
     @State private var companion: Companion = .alone
     @State private var location: String = ""
     @State private var selectedPicture: TilePicture = .sun
+    var bucketListId: String
     
     var onSave: (BucketListItem) -> Void
     
@@ -76,6 +77,7 @@ struct EditView: View {
                                 if let userID = userViewModel.userID {
                                     let newBucket = BucketListItem(
                                         userId: userID, 
+                                        bucketListId: bucketListId,
                                         title: title,
                                         country: country,
                                         location: location,
@@ -93,7 +95,7 @@ struct EditView: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.grey1)
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)
@@ -105,7 +107,7 @@ struct EditView: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.grey1)
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)

@@ -83,7 +83,7 @@ struct AddLikeView: View {
                                 .frame(maxWidth: .infinity)
                                 .padding()
                                 .background(Color.grey1)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                                 .cornerRadius(10)
                         }
                     }
@@ -98,7 +98,7 @@ struct AddLikeView: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.grey1)
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)

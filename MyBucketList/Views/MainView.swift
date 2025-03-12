@@ -38,9 +38,8 @@ struct MainView: View {
                         ScrollView {
                             VStack(spacing: 10) {
                                 ForEach(tileViewModel.tiles.reversed()) { item in
-                                    NavigationLink(destination: BucketListView(item: item, viewModel: BucketListViewModel())) {
-                                        TileView(bucketItem: item)
-                                    }
+                                    // 🔹 Übergib die bucketListId korrekt
+                                    navigationLink(for: item)
                                 }
                             }
                             .padding(.vertical, 10)
@@ -63,13 +62,26 @@ struct MainView: View {
                     }
                 }
                 .sheet(isPresented: $showEditView) {
-                    EditView { newItem in
+                    // 🔹 Übergib den bucketListId-Parameter
+                    EditView(bucketListId: UUID().uuidString) { newItem in
                         tileViewModel.addTile(newItem)
                     }
                     .presentationBackground(.ultraThinMaterial)
                 }
             }
             .navigationTitle("Bucket Listen")
+        }
+    }
+
+    // 🔹 Separate Funktion zur Erstellung des NavigationLink
+    private func navigationLink(for item: BucketListItem) -> some View {
+        NavigationLink(
+            destination: BucketListView(
+                item: item,
+                viewModel: BucketListViewModel(bucketListId: item.id.uuidString) // 🔹 bucketListId wird übergeben
+            )
+        ) {
+            TileView(bucketItem: item)
         }
     }
 }

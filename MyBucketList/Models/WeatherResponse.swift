@@ -4,9 +4,8 @@
 //
 //  Created by Dominic Dobbrunz on 25.02.25.
 //
-
-
 import Foundation
+
 struct WeatherResponse: Codable {
     struct Location: Codable {
         let name: String

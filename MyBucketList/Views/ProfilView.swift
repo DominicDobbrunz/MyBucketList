@@ -134,11 +134,11 @@ struct ProfilView: View {
                                         .frame(maxWidth: .infinity)
                                         .padding()
                                         .background(Color.grey1)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(.black)
                                         .cornerRadius(8)
                                     }
                                     .padding(.horizontal)
-                                    .padding(.bottom, 40)
+                                    .padding(.bottom, 45)
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {

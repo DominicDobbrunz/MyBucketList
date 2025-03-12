@@ -5,9 +5,6 @@
 //  Created by Dominic Dobbrunz on 17.02.25.
 //
 import Foundation
-
-
-
 import SwiftUI
 
 enum Companion: String, Codable, CaseIterable, Identifiable {
