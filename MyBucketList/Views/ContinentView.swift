@@ -61,7 +61,7 @@ struct ContinentView: View {
                     .padding(.bottom, 30)
                 }
                 .navigationTitle("Welt Liste")
-                .navigationBarBackButtonHidden(true)
+                //.navigationBarBackButtonHidden(true)
                 .background(Color.clear)
             }
         }
