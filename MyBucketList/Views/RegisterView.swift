@@ -16,7 +16,7 @@ struct RegisterView: View {
     @State private var confirmPassword: String = ""
     @State private var showPassword: Bool = false
     @State private var showConfirmPassword: Bool = false
-    @State private var errorMessage: String = "" 
+    @State private var errorMessage: String = ""
 
     var body: some View {
         NavigationStack {
@@ -77,7 +77,6 @@ struct RegisterView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
 
-                
                 if !errorMessage.isEmpty {
                     Text(errorMessage)
                         .foregroundColor(.black)
@@ -86,14 +85,27 @@ struct RegisterView: View {
                 }
 
                 Button(action: {
-                    if validatePassword() {
-                        Task {
-                            guard password == confirmPassword else {
-                                errorMessage = "Passwörter stimmen nicht überein."
-                                return
+                    // Passwortvalidierung direkt im Button-Action-Handler
+                    let passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=(.*\\d){2,})(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{9,}$"
+                    let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+                    
+                    if passwordTest.evaluate(with: password) {
+                        if password == confirmPassword {
+                            Task {
+                                await userViewModel.signUp(email: email, password: password, name: name)
                             }
-                            await userViewModel.signUp(email: email, password: password, name: name)
+                        } else {
+                            errorMessage = "Passwörter stimmen nicht überein."
                         }
+                    } else {
+                        errorMessage = """
+                        Passwort muss:
+                        - Mehr als 8 Zeichen lang sein
+                        - Mindestens einen Großbuchstaben enthalten
+                        - Mindestens einen Kleinbuchstaben enthalten
+                        - Mindestens zwei Zahlen enthalten
+                        - Mindestens ein Sonderzeichen enthalten
+                        """
                     }
                 }) {
                     Text("Auf zum Bucket")
@@ -122,20 +134,6 @@ struct RegisterView: View {
             .navigationBarBackButtonHidden(true)
             .padding()
             .background(MeshGradientView().ignoresSafeArea())
-        }
-    }
-
-    // Passwortvalidierung
-    private func validatePassword() -> Bool {
-        let passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$"
-        let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
-        
-        if passwordTest.evaluate(with: password) {
-            errorMessage = ""
-            return true
-        } else {
-            errorMessage = "Passwort muss mindestens 8 Zeichen, eine Zahl und ein Sonderzeichen enthalten."
-            return false
         }
     }
 }

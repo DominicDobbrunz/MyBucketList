@@ -29,7 +29,7 @@ struct AnimationsView: View {
                    List(bucketListItems, id: \.self) { item in
                        Text(item)
                    }
-                   .listStyle(.plain)
+                  .listStyle(.plain)
                    .transition(.opacity)
                }
            }

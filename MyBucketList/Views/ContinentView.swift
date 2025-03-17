@@ -54,7 +54,7 @@ struct ContinentView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(Color.grey1)
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .cornerRadius(8)
                     }
                     .padding(.horizontal)

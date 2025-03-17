@@ -62,7 +62,7 @@ class BucketListViewModel: ObservableObject {
 
     // ✅ Bucket als abgeschlossen markieren
     func markAsCompleted(index: Int) {
-        guard let userId = userId else {
+        guard userId != nil else {
             print("User is not logged in.")
             return
         }

@@ -48,6 +48,8 @@ struct TileView: View {
                     // 🔹 Menü-Button mit Kontextmenü für Löschen
                     HStack {
                         Spacer()
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundStyle(.black)
                         Button {
                             showDeleteAlert = true
                         } label: {

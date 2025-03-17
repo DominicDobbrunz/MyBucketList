@@ -16,14 +16,14 @@ struct LikeView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 16) {
+                LazyVGrid(columns: columns, spacing: 12) {
                     ForEach(likeVM.likes) { like in
                         VStack {
                             if like.imageName == "placeholder" {
                                 Image(systemName: "photo") // ✅ Standardbild anzeigen
                                     .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 120, height: 150)
+                                    //.scaledToFit()
+                                    .frame(width: 135, height: 150)
                                     .cornerRadius(5)
                             } else {
                                 AsyncImage(url: URL(string: like.imageName)) { phase in
@@ -34,7 +34,7 @@ struct LikeView: View {
                                         image
                                             .resizable()
                                             //.scaledToFit()
-                                            .frame(width: 130, height: 150)
+                                            .frame(width: 135, height: 150)
                                             .cornerRadius(5)
                                     case .failure:
                                         Image(systemName: "photo") // ✅ Platzhalter, falls Bild nicht geladen wird
@@ -52,7 +52,7 @@ struct LikeView: View {
                                 .font(.headline)
                                 .foregroundColor(.black)
                         }
-                        .frame(width: 160, height: 200)
+                        .frame(width: 170, height: 200)
                         .background(Color.green1.opacity(0.8))
                         .cornerRadius(10)
                         .shadow(radius: 5)

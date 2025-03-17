@@ -36,7 +36,7 @@ struct TabuView: View {
                             )
                             .frame(maxWidth: .infinity)
                         })
-                        .foregroundStyle(selectedTab == item.tap ? Color("violet"): .secondary)
+                        .foregroundStyle(selectedTab == item.tap ? Color("violet"): .white)
                     }
                 }
                 .frame(width: 350, height: 70)
