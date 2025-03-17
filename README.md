@@ -15,7 +15,6 @@ Die App ist für Menschen im Alter von 16 - 99 Jahre, da die Kinder immer mit de
 ## 👨🏻‍💻 Welche Funktionen bringt die App mit: 
 
 > - Für alle Länder verfügbar
-> - Eine Karte die dich ans Ziel bringt
 > - Über mein Bucket wo das + ist kann man ein neuen Bucket erstellen mit Land und der Flagge
 > - Wenn Sie erstellt ist, kann man über die angelte Bucket auf sie zugreifen und da seine Liste für die Aktivitäten anlegen
 > - Wenn ein Bucket erledigt wird man mit einer Benachrichtigung informiert
@@ -23,11 +22,13 @@ Die App ist für Menschen im Alter von 16 - 99 Jahre, da die Kinder immer mit de
 
 ##  📱 Wie sehen die Screens aus:
 
-![LadebildschirmView](https://github.com/user-attachments/assets/8b5e3aac-079c-4f03-a89d-7f9113ab908d)
-![LoginView](https://github.com/user-attachments/assets/3eb0542a-a68b-4141-bccd-1672d38d1a91)
-![RegistrierView](https://github.com/user-attachments/assets/4635729f-b379-4a21-8346-505ba6403ed3)
-![BucketListView](https://github.com/user-attachments/assets/8a2d979e-3f58-4555-9fa4-2e139c78316d)
-![MapView](https://github.com/user-attachments/assets/5e75f1a3-de34-4746-9eb6-7cbd075529dc)
+![Bildschirmfoto 2025-03-17 um 10 02 13 1](https://github.com/user-attachments/assets/588af37a-e9ce-4c66-a921-dccf1b764488)
+![Bildschirmfoto 2025-03-17 um 10 00 50 1](https://github.com/user-attachments/assets/b8cfe026-739a-428d-adf7-e5b06158e8f6)
+![Bildschirmfoto 2025-03-17 um 10 41 59 1](https://github.com/user-attachments/assets/39e3dff3-effe-4840-9ec3-68ac1203b4bc)
+![Bildschirmfoto 2025-03-17 um 10 48 33 1](https://github.com/user-attachments/assets/3092010f-8f5c-4b1e-b5a7-2dde02d6db95)
+![Bildschirmfoto 2025-03-17 um 10 49 41 1](https://github.com/user-attachments/assets/242b51ab-0678-4780-9739-73b89e7d5c1b)
+![Bildschirmfoto 2025-03-17 um 11 03 16 1](https://github.com/user-attachments/assets/0a90f78b-2713-4849-a87f-646a01db2b81)
+
 
 
 
