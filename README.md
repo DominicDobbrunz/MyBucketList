@@ -15,7 +15,7 @@ Die App ist für Menschen im Alter von 16 - 99 Jahre, da die Kinder immer mit de
 ## 👨🏻‍💻 Welche Funktionen bringt die App mit: 
 
 > - Für alle Länder verfügbar
-> - Über mein Bucket wo das + ist kann man ein neuen Bucket erstellen mit Land und der Flagge
+> - Über mein Bucket wo das + ist kann man ein neuen Bucket erstellen mit Land und Stadt
 > - Wenn Sie erstellt ist, kann man über die angelte Bucket auf sie zugreifen und da seine Liste für die Aktivitäten anlegen
 > - Wenn ein Bucket erledigt wird man mit einer Benachrichtigung informiert
 > - Einen Bereich wo man seine besten Erlebnisse noch mal sehen kann.
