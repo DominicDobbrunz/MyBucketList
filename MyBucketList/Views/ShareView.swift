@@ -19,12 +19,14 @@ struct ShareView: View {
                 .foregroundColor(.black)
                 .padding(.top, 20)
 
-            // 🔹 Buttons für verschiedene Plattformen
+            
             Button(action: {
                 shareOnPlatform("Instagram")
             }) {
                 HStack {
-                    Image(systemName: "camera.fill")
+                    Image("Insta")
+                        .resizable()
+                        .frame(width: 20, height: 20)
                     Text("Instagram")
                 }
                 .frame(maxWidth: .infinity)
@@ -38,7 +40,9 @@ struct ShareView: View {
                 shareOnPlatform("Facebook")
             }) {
                 HStack {
-                    Image(systemName: "f.circle.fill")
+                    Image("Facebook")
+                        .resizable()
+                        .frame(width: 20, height: 20)
                     Text("Facebook")
                 }
                 .frame(maxWidth: .infinity)
@@ -53,6 +57,8 @@ struct ShareView: View {
             }) {
                 HStack {
                     Image(systemName: "message.fill")
+                        .resizable()
+                        .frame(width: 20, height: 20)
                     Text("iMessage")
                 }
                 .frame(maxWidth: .infinity)
@@ -66,7 +72,9 @@ struct ShareView: View {
                 shareOnPlatform("WhatsApp")
             }) {
                 HStack {
-                    Image(systemName: "phone.fill")
+                    Image("WhatsApp")
+                        .resizable()
+                        .frame(width: 20, height: 20)
                     Text("WhatsApp")
                 }
                 .frame(maxWidth: .infinity)
@@ -80,13 +88,10 @@ struct ShareView: View {
         }
         .padding(.horizontal, 20)
     }
-
-    // 🔹 Funktion zum Teilen über eine bestimmte Plattform
     private func shareOnPlatform(_ platform: String) {
             print("Teilen über \(platform)")
-            presentationMode.wrappedValue.dismiss() // Schließe die ShareView
-
-            // 🔹 Verwende UIWindowScene.windows, um den ShareSheet anzuzeigen
+            presentationMode.wrappedValue.dismiss()
+            
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let rootViewController = windowScene.windows.first?.rootViewController {
                 let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
